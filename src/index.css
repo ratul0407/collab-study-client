@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .input-field {
+    @apply input input-bordered flex items-center gap-2 border-2 bg-transparent font-bold;
+  }
+}
+option {
+  background-color: transparent;
+}
