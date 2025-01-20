@@ -9,7 +9,8 @@ export default {
         cursive: ["Cedarville Cursive", "serif"],
       },
       backgroundImage: {
-        "blue-sky-mobile": 'url("./assets/blue-sky-mobile.jpg")',
+        "blue-sky": 'url("./assets/blue-sky.jpg")',
+        "blue-horizon": 'url("./assets/blue-horizon.jpg")',
       },
     },
   },

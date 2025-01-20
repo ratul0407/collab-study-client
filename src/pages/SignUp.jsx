@@ -2,9 +2,10 @@ import { MdAddAPhoto } from "react-icons/md";
 import { Link } from "react-router-dom";
 import googlePng from "../assets/google.png";
 import githubPng from "../assets/github.png";
+
 function SignUp() {
   return (
-    <div className="mx-auto min-h-screen bg-blue-sky-mobile bg-cover bg-center p-10 font-montserrat xl:container xl:w-full">
+    <div className="bg-blue-sky mx-auto min-h-screen bg-cover bg-center p-10 font-montserrat xl:container xl:w-full">
       <h3 className="mb-10 text-center font-cursive text-4xl text-white">
         Hey There Learner Welcome Back!
       </h3>
@@ -12,6 +13,9 @@ function SignUp() {
         <form className="">
           {/* inputs container */}
           <div className="space-y-4">
+            <h3 className="text-center text-2xl font-bold text-white">
+              Create your own account!
+            </h3>
             {/* email input field */}
             <label className="input-field">
               <svg
