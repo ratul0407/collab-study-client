@@ -1,12 +1,14 @@
 import { MdAddAPhoto } from "react-icons/md";
 import { Link } from "react-router-dom";
+import googlePng from "../assets/google.png";
+import githubPng from "../assets/github.png";
 function SignUp() {
   return (
     <div className="mx-auto min-h-screen bg-blue-sky-mobile bg-cover bg-center p-10 font-montserrat xl:container xl:w-full">
       <h3 className="mb-10 text-center font-cursive text-4xl text-white">
         Hey There Learner Welcome Back!
       </h3>
-      <div className="max-w-lg border border-blue-500 p-12 shadow-xl lg:mx-auto">
+      <div className="max-w-lg border border-blue-500 p-12 shadow-xl lg:mx-auto lg:max-w-xl">
         <form className="">
           {/* inputs container */}
           <div className="space-y-4">
@@ -63,7 +65,7 @@ function SignUp() {
             {/* select options for role */}
             <select
               defaultValue="default"
-              className="select select-bordered w-full max-w-xs appearance-none border-2 bg-transparent font-bold"
+              className="select select-bordered w-full appearance-none border-2 bg-transparent font-bold"
             >
               <option value="student">Student</option>
               <option value="tutor">Tutor</option>
@@ -77,6 +79,18 @@ function SignUp() {
             </Link>
           </p>
         </form>
+
+        <div className="grid gap-4">
+          <button className="social-login-btn gap-3 py-3">
+            <img className="w-8" src={googlePng} alt="" />
+
+            <span>Continue With Google</span>
+          </button>
+          <button className="social-login-btn">
+            <img className="w-14" src={githubPng} alt="" />
+            <span>Continue With Github</span>
+          </button>
+        </div>
       </div>
     </div>
   );
