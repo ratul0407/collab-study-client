@@ -6,10 +6,13 @@
 
 @layer utilities {
   .input-field {
-    @apply input input-bordered flex items-center gap-2 border-2 bg-transparent font-bold;
+    @apply input input-bordered flex items-center gap-2 border-2 bg-transparent font-bold text-white;
   }
   .social-login-btn {
-    @apply flex items-center justify-center rounded-lg border-2 border-blue-500 px-2 text-center font-medium text-white transition-all duration-300 hover:bg-white hover:text-blue-500;
+    @apply flex items-center justify-center rounded-lg border-4 border-blue-500 px-2 text-center font-medium text-white transition-all duration-300 hover:bg-white hover:text-blue-500;
+  }
+  .authentication-btn {
+    @apply btn bg-transparent text-white hover:text-blue-700;
   }
 }
 option {

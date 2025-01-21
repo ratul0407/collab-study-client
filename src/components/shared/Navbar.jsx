@@ -1,7 +1,9 @@
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
 function Navbar() {
+  const { user, logOut } = useAuth();
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -29,12 +31,25 @@ function Navbar() {
             tabIndex={0}
             className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
-            <li>
-              <a>Login</a>
-            </li>
-            <li>
-              <Link to="/sign-up">Sign Up</Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <button onClick={logOut}>Log Out</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/sign-up">Sign Up</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

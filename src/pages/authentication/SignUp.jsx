@@ -1,18 +1,40 @@
 import { MdAddAPhoto } from "react-icons/md";
-import { Link } from "react-router-dom";
-import googlePng from "../assets/google.png";
-import githubPng from "../assets/github.png";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import SocialLogin from "../../components/authentication/SocialLogin";
+import { saveUser } from "../../api/utils";
 
 function SignUp() {
+  const { createUser, updateUserProfile } = useAuth();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      //user registration
+      await createUser(data.email, data.pass);
+
+      //update user profile
+      updateUserProfile(data.username, data.photoUrl);
+      saveUser(data);
+      toast.success(`Account created successfully!`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
-    <div className="bg-blue-sky mx-auto min-h-screen bg-cover bg-center p-10 font-montserrat xl:container xl:w-full">
+    <div className="mx-auto min-h-screen bg-blue-sky bg-cover bg-center p-10 font-montserrat xl:container xl:w-full">
       <h3 className="mb-10 text-center font-cursive text-4xl text-white">
         Hey There Learner Welcome Back!
       </h3>
       <div className="max-w-lg border border-blue-500 p-12 shadow-xl lg:mx-auto lg:max-w-xl">
-        <form className="">
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* inputs container */}
-          <div className="space-y-4">
+          <div className="grid space-y-4">
             <h3 className="text-center text-2xl font-bold text-white">
               Create your own account!
             </h3>
@@ -27,7 +49,13 @@ function SignUp() {
                 <path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
                 <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
               </svg>
-              <input type="text" className="grow" placeholder="Email" />
+              <input
+                {...register("email")}
+                type="email"
+                className="grow"
+                placeholder="Email"
+                required
+              />
             </label>
 
             {/* username input field */}
@@ -40,7 +68,25 @@ function SignUp() {
               >
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
               </svg>
-              <input type="text" className="grow" placeholder="Username" />
+              <input
+                {...register("username")}
+                required
+                type="text"
+                className="grow"
+                placeholder="Username"
+              />
+            </label>
+
+            {/* profile pic input field */}
+            <label className="input-field">
+              <MdAddAPhoto />
+              <input
+                {...register("photoUrl")}
+                required
+                type="text"
+                className="grow"
+                placeholder="Photo url"
+              />
             </label>
 
             {/* password input field */}
@@ -57,25 +103,30 @@ function SignUp() {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" placeholder="password" />
-            </label>
-
-            {/* profile pic input field */}
-            <label className="input-field">
-              <MdAddAPhoto />
-              <input type="text" className="grow" placeholder="Photo url" />
+              <input
+                {...register("pass")}
+                required
+                type="password"
+                className="grow"
+                placeholder="password"
+              />
             </label>
 
             {/* select options for role */}
             <select
+              {...register("role")}
               defaultValue="default"
-              className="select select-bordered w-full appearance-none border-2 bg-transparent font-bold"
+              className="select select-bordered w-full appearance-none border-2 bg-blue-600 font-bold text-white"
             >
               <option value="student">Student</option>
               <option value="tutor">Tutor</option>
               <option value="admin">Admin</option>
             </select>
+            <button className="authentication-btn" type="submit">
+              Create Account
+            </button>
           </div>
+
           <p className="py-4 font-medium text-white">
             Already Have an Account?{" "}
             <Link to="/login" className="text-violet-800 underline">
@@ -83,18 +134,7 @@ function SignUp() {
             </Link>
           </p>
         </form>
-
-        <div className="grid gap-4">
-          <button className="social-login-btn gap-3 py-3">
-            <img className="w-8" src={googlePng} alt="" />
-
-            <span>Continue With Google</span>
-          </button>
-          <button className="social-login-btn">
-            <img className="w-14" src={githubPng} alt="" />
-            <span>Continue With Github</span>
-          </button>
-        </div>
+        <SocialLogin />
       </div>
     </div>
   );
