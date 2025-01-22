@@ -1,30 +1,43 @@
-import { IoMenu } from "react-icons/io5";
+import { IoBookSharp, IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import avatarImg from "../../assets/placeholder.jpg";
 import useAuth from "../../hooks/useAuth";
+import { FaUser } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
 function Navbar() {
   const { user, logOut } = useAuth();
   return (
-    <div className="navbar bg-base-100">
-      <div className="navbar-start">
+    <div className="navbar">
+      <div className="navbar-start space-x-4">
         <Link to="/">
-          <img className="w-20" src={logo} alt="Company Logo" />
+          {/* <img className="w-20" src={logo} alt="Company Logo" />
+           */}
+          <div className="flex flex-col items-center">
+            <IoBookSharp size={40} />
+            <span className="font-cursive text-3xl">Study House</span>
+          </div>
         </Link>
       </div>
-      <div className="navbar-center">
-        <h3 className="rounded-lg bg-blue-700 p-2.5 text-xl font-bold text-white md:text-2xl lg:text-3xl">
-          Study House
-        </h3>
-      </div>
       <div className="navbar-end">
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end rounded-full border">
           <div
             tabIndex={0}
             role="button"
-            className="avatar btn btn-circle btn-ghost"
+            className="flex cursor-pointer flex-row items-center gap-3 rounded-full border-[1px] border-neutral-200 p-4 transition hover:shadow-md md:px-2 md:py-1"
           >
-            <div className="rounded-full">
-              <IoMenu size={20} />
+            <div className="flex w-full items-center justify-between gap-2">
+              <AiOutlineMenu />
+              <div className="hidden md:block">
+                {/* Avatar */}
+                <img
+                  className="rounded-full"
+                  referrerPolicy="no-referrer"
+                  src={user && user.photoURL ? user.photoURL : avatarImg}
+                  alt="profile"
+                  height="30"
+                  width="30"
+                />
+              </div>
             </div>
           </div>
           <ul
@@ -34,7 +47,7 @@ function Navbar() {
             {user ? (
               <>
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/dashboard/your-sessions">Dashboard</Link>
                 </li>
                 <li>
                   <button onClick={logOut}>Log Out</button>

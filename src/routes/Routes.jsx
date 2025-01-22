@@ -5,6 +5,8 @@ import Login from "../pages/authentication/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
+import YourSessions from "../pages/dashboard/tutor/YourSessions";
+import TutorRoute from "./TutorRoute";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/create-study-session",
-        element: <CreateStudySession />,
+        element: (
+          <PrivateRoute>
+            <CreateStudySession />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/your-sessions",
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <YourSessions />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },

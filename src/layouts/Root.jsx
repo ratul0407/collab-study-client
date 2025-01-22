@@ -3,11 +3,11 @@ import Navbar from "../components/shared/Navbar";
 
 function Root() {
   return (
-    <div className="container mx-auto font-montserrat font-normal lg:w-11/12">
-      <div className="py-2 md:py-4 lg:py-8">
+    <div className="container mx-auto w-11/12 font-montserrat font-normal">
+      <div className="py-2 md:py-4">
         <Navbar />
       </div>
-      <div>
+      <div className="">
         <Outlet />
       </div>
     </div>
