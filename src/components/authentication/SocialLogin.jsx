@@ -5,13 +5,22 @@ import { saveUser } from "../../api/utils";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 function SocialLogin() {
-  const { googleSignIn } = useAuth();
+  const { googleSignIn, githubSignIn } = useAuth();
   const navigate = useNavigate();
   const handleGoogleSignIn = async () => {
     try {
       const data = await googleSignIn();
       await saveUser(data?.user);
       toast.success("Sign In SuccessFul");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGithubSignIn = async () => {
+    try {
+      const data = await githubSignIn();
+      console.log(data);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -27,7 +36,7 @@ function SocialLogin() {
 
         <span>Continue With Google</span>
       </button>
-      <button className="social-login-btn">
+      <button onClick={handleGithubSignIn} className="social-login-btn">
         <img className="w-14" src={githubPng} alt="" />
         <span>Continue With Github</span>
       </button>

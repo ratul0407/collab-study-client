@@ -4,6 +4,7 @@ import SignUp from "../pages/authentication/SignUp";
 import Login from "../pages/authentication/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,12 @@ const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "/dashboard/create-study-session",
+        element: <CreateStudySession />,
+      },
+    ],
   },
   {
     path: "/sign-up",
