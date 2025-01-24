@@ -2,6 +2,7 @@ import { MdMenu } from "react-icons/md";
 import TutorMenu from "./menu/TutorMenu";
 import StudentMenu from "./menu/StudentMenu";
 import useRole from "../../hooks/useRole";
+import AdminMenu from "./menu/AdminMenu";
 
 function Sidebar() {
   const { role } = useRole();
@@ -28,6 +29,9 @@ function Sidebar() {
 
           {/* for tutor */}
           {role === "tutor" && <TutorMenu />}
+
+          {/* for admin */}
+          {role === "admin" && <AdminMenu />}
         </ul>
       </div>
     </div>
