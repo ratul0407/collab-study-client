@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import InputField from "../../../components/form/InputField";
 import useAuth from "../../../hooks/useAuth";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
@@ -10,6 +10,7 @@ const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 console.log(img_hosting_api);
 export const FormContext = createContext(null);
 function CreateStudySession() {
+  const [regErrColor, setRegErrColor] = useState("");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -19,6 +20,7 @@ function CreateStudySession() {
   } = useForm();
   const onSubmit = async (data) => {
     const imgFile = { image: data.img[0] };
+
     console.log(imgFile);
     const res = await axios.post(img_hosting_api, imgFile, {
       headers: { "content-type": "multipart/form-data" },
@@ -104,6 +106,7 @@ function CreateStudySession() {
                 id={"reg-start"}
                 name={"reg_start"}
                 required={true}
+                regErrColor={regErrColor}
               />
 
               {/* registration end date */}

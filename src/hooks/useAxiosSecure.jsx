@@ -11,23 +11,32 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const navigate = useNavigate();
   const { logOut } = useAuth();
-  useEffect(() => {
-    axiosSecure.interceptors.response.use(
-      (res) => {
-        return res;
-      },
-      async (error) => {
-        console.log("Error caught from axios interceptor-->", error.response);
-        if (error.response.status === 401 || error.response.status === 403) {
-          // logout
-          logOut();
-          // navigate to login
-          navigate("/login");
-        }
-        return Promise.reject(error);
-      },
-    );
-  }, [logOut, navigate]);
+
+  //passing the token in authorization header;
+  axiosSecure.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem("token");
+      config.headers.authorization = token;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
+
+  axiosSecure.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const status = error.response.status;
+      if (status === 401 || status === 403) {
+        await logOut;
+        navigate("/login");
+      }
+      return Promise.reject(error);
+    },
+  );
   return axiosSecure;
 };
 
