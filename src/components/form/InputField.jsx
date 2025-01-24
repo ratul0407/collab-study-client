@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FormContext } from "../../pages/dashboard/tutor/CreateStudySession";
 
 function InputField({
@@ -14,7 +14,6 @@ function InputField({
   name,
   min,
   max,
-
   required = false,
 }) {
   const { register } = useContext(FormContext);

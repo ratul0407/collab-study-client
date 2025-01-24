@@ -21,6 +21,10 @@ function SocialLogin() {
     try {
       const data = await githubSignIn();
       console.log(data);
+      if (!data.email)
+        toast.error(
+          "You cannot use our application if you login with your github. As it doesn't provide an email address",
+        );
       navigate("/");
     } catch (err) {
       console.log(err);

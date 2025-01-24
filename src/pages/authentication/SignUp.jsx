@@ -18,10 +18,10 @@ function SignUp() {
       await createUser(data.email, data.pass);
 
       //update user profile
-      updateUserProfile(data.username, data.photoUrl);
-      saveUser(data);
-      toast.success(`Account created successfully!`);
+      await updateUserProfile(data.username, data.photoUrl);
+      await saveUser(data);
       navigate("/");
+      toast.success(`Account created successfully!`);
     } catch (err) {
       console.log(err);
     }
@@ -115,12 +115,10 @@ function SignUp() {
             {/* select options for role */}
             <select
               {...register("role")}
-              defaultValue="default"
               className="select select-bordered w-full appearance-none border-2 bg-blue-600 font-bold text-white"
             >
               <option value="student">Student</option>
               <option value="tutor">Tutor</option>
-              <option value="admin">Admin</option>
             </select>
             <button className="authentication-btn" type="submit">
               Create Account

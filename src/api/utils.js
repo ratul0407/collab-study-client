@@ -5,9 +5,9 @@ const saveUser = async (user) => {
     `${import.meta.env.VITE_API_URL}/users/${user.email}`,
     {
       email: user?.email,
-      name: user?.displayName,
+      name: user?.username,
       role: user?.role || "student",
-      photo: user?.photoURL,
+      photo: user?.photoUrl,
     },
   );
   return data;

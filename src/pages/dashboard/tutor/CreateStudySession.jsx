@@ -3,29 +3,43 @@ import InputField from "../../../components/form/InputField";
 import useAuth from "../../../hooks/useAuth";
 import { createContext } from "react";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
+console.log(img_hosting_api);
 export const FormContext = createContext(null);
 function CreateStudySession() {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
-    //upload img to imgbb and then get imgurl
-    const imgFile = data.img[0];
-    const res = await axios.post(img_hosting_api, imgFile);
+    const imgFile = { image: data.img[0] };
+    console.log(imgFile);
+    const res = await axios.post(img_hosting_api, imgFile, {
+      headers: { "content-type": "multipart/form-data" },
+    });
+    const result = await axiosSecure.post(
+      `${import.meta.env.VITE_API_URL}/add-session`,
+      {
+        ...data,
+        img: res.data.data.display_url,
+      },
+    );
+    console.log(result);
   };
+
   return (
     <FormContext.Provider value={{ register }}>
       <div className="mx-4 px-4 py-10 shadow-2xl sm:mx-6 lg:mx-auto lg:max-w-2xl lg:rounded-lg lg:px-4 lg:py-12">
         <h3 className="pb-4 text-center text-3xl font-bold text-blue-700">
           Add a new Study Session
         </h3>
+
         <form className="lg:px-10" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid">
             <InputField
@@ -88,7 +102,8 @@ function CreateStudySession() {
                 split={true}
                 type={"date"}
                 id={"reg-start"}
-                name={"register-starts"}
+                name={"reg_start"}
+                required={true}
               />
 
               {/* registration end date */}
@@ -97,7 +112,8 @@ function CreateStudySession() {
                 split={true}
                 type={"date"}
                 id={"red-end"}
-                name={"register-ends"}
+                name={"reg_end"}
+                required={true}
               />
             </div>
             {/* class start and end date */}
@@ -108,7 +124,8 @@ function CreateStudySession() {
                 split={true}
                 type={"date"}
                 id={"class-start"}
-                name="class-starts"
+                name="class_start"
+                required={true}
               />
 
               {/* class end date */}
@@ -117,22 +134,31 @@ function CreateStudySession() {
                 split={true}
                 type={"date"}
                 id={"class-end"}
-                name="class-ends"
+                name="class_end"
+                required={true}
               />
             </div>
             {/* session duration */}
             <span>Session Duration</span>
             <div className="lg:flex lg:gap-4">
-              <InputField
-                label={"hours"}
-                type={"number"}
-                placeholder={"0 hrs and 0 mins"}
-                id={"hours"}
-                name="hours"
-                min="0"
-                max="6"
-                split={true}
-              />
+              <div className="form-control w-full lg:w-1/2">
+                <label htmlFor="hours" className="label">
+                  Hours
+                </label>
+                <select
+                  className="select select-bordered"
+                  {...register("hours")}
+                  id="hours"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+
               <InputField
                 label="mins"
                 type="number"
@@ -142,6 +168,7 @@ function CreateStudySession() {
                 min="0"
                 max="59"
                 split={true}
+                required={true}
               />
             </div>
 

@@ -4,8 +4,10 @@ import avatarImg from "../../assets/placeholder.jpg";
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
+import useRole from "../../hooks/useRole";
 function Navbar() {
   const { user, logOut } = useAuth();
+  const { role } = useRole();
   return (
     <div className="navbar">
       <div className="navbar-start space-x-4">
@@ -47,7 +49,7 @@ function Navbar() {
             {user ? (
               <>
                 <li>
-                  <Link to="/dashboard/your-sessions">Dashboard</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <button onClick={logOut}>Log Out</button>
