@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
-console.log(img_hosting_api);
 export const FormContext = createContext(null);
 function CreateStudySession() {
   const [regStartErr, setRegStartErr] = useState(false);
@@ -51,7 +50,6 @@ function CreateStudySession() {
     }
   };
 
-  console.log(regStartText, regEndText);
   return (
     <FormContext.Provider value={{ register }}>
       <div className="mx-4 px-4 py-10 shadow-2xl sm:mx-6 lg:mx-auto lg:max-w-2xl lg:rounded-lg lg:px-4 lg:py-12">
