@@ -55,9 +55,7 @@ function CreateStudySession() {
   return (
     <FormContext.Provider value={{ register }}>
       <div className="mx-4 px-4 py-10 shadow-2xl sm:mx-6 lg:mx-auto lg:max-w-2xl lg:rounded-lg lg:px-4 lg:py-12">
-        <h3 className="pb-4 text-center text-3xl font-bold text-blue-700">
-          Add a new Study Session
-        </h3>
+        <h3 className="dashboard-title">Add a new Study Session</h3>
 
         <form className="lg:px-10" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid">

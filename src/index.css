@@ -17,6 +17,9 @@
   .form-btn {
     @apply btn mt-4 bg-blue-700 text-lg text-white transition-all duration-300 hover:bg-blue-500;
   }
+  .dashboard-title {
+    @apply pb-4 text-center text-3xl font-bold text-blue-700;
+  }
 }
 option {
   background-color: transparent;

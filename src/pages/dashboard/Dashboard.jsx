@@ -3,7 +3,7 @@ import Sidebar from "../../components/dashboard/Sidebar";
 
 function Dashboard() {
   return (
-    <div className="lg:flex">
+    <div className="lg:flex lg:gap-4">
       <aside className="">
         <Sidebar />
       </aside>

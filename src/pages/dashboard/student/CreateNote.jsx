@@ -21,7 +21,7 @@ function CreateNote() {
   };
   return (
     <div>
-      <h3 className="text-center text-xl font-bold uppercase">
+      <h3 className="dashboard-title">
         Create a note for better understanding of a topic.
       </h3>
       <form
