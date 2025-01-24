@@ -12,7 +12,7 @@ function CreateNote() {
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
     try {
-      await axiosSecure.post("/add-note", data);
+      await axiosSecure.post("/notes", data);
       toast.success("Note created successfully!");
       navigate("/dashboard/manage-notes");
     } catch (err) {

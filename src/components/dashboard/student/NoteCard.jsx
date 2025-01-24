@@ -1,6 +1,6 @@
 import UpdateNoteModal from "../../modal/UpdateNoteModal";
 
-function NoteCard({ title, description, id, refetch }) {
+function NoteCard({ title, description, id, refetch, handleDelete }) {
   return (
     <div className="card max-w-64 shadow-inner shadow-slate-300">
       <div className="card-body items-center text-center">
@@ -13,7 +13,9 @@ function NoteCard({ title, description, id, refetch }) {
             title={title}
             description={description}
           />
-          <button className="btn btn-error">delete</button>
+          <button className="btn btn-error" onClick={() => handleDelete(id)}>
+            delete
+          </button>
         </div>
       </div>
     </div>

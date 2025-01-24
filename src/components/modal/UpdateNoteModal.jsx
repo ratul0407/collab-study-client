@@ -14,7 +14,7 @@ function UpdateNoteModal({ id, title, description, refetch }) {
     };
 
     try {
-      await axiosSecure.patch(`/update-note/${id}`, { note });
+      await axiosSecure.patch(`/notes/${id}`, { note });
       toast.success("Note updated successfully");
       document.getElementById(id).close();
       refetch();

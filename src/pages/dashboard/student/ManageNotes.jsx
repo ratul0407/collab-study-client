@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import NoteCard from "../../../components/dashboard/student/NoteCard";
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
+import Swal from "sweetalert2";
 
 function ManageNotes() {
   const { user } = useAuth();
@@ -14,10 +15,36 @@ function ManageNotes() {
   } = useQuery({
     queryKey: ["note", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/get-notes/${user?.email}`);
+      const { data } = await axiosSecure(`/notes/${user?.email}`);
       return data;
     },
   });
+
+  const handleDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axiosSecure.delete(`/notes/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>
@@ -32,6 +59,7 @@ function ManageNotes() {
               description={note.description}
               key={note._id}
               id={note._id}
+              handleDelete={handleDelete}
             />
           );
         })}
