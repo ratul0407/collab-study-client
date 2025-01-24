@@ -7,6 +7,8 @@ import PrivateRoute from "./PrivateRoute";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
 import YourSessions from "../pages/dashboard/tutor/YourSessions";
 import TutorRoute from "./TutorRoute";
+import CreateNote from "../pages/dashboard/student/CreateNote";
+import ManageNotes from "../pages/dashboard/student/ManageNotes";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,22 @@ const router = createBrowserRouter([
             <TutorRoute>
               <YourSessions />
             </TutorRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/create-note",
+        element: (
+          <PrivateRoute>
+            <CreateNote />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-notes",
+        element: (
+          <PrivateRoute>
+            <ManageNotes />
           </PrivateRoute>
         ),
       },

@@ -4,13 +4,18 @@ import useAuth from "../../../hooks/useAuth";
 import { createContext, useState } from "react";
 import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { compareDesc } from "date-fns";
+import toast from "react-hot-toast";
 
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 console.log(img_hosting_api);
 export const FormContext = createContext(null);
 function CreateStudySession() {
-  const [regErrColor, setRegErrColor] = useState("");
+  const [regStartErr, setRegStartErr] = useState(false);
+  const [regEndErr, setRegEndErr] = useState(false);
+  const [regStartText, setRegStartText] = useState("");
+  const [regEndText, setRegEndText] = useState("");
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
@@ -19,22 +24,34 @@ function CreateStudySession() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const imgFile = { image: data.img[0] };
+    //upload the img to imgbb
+    // const imgFile = { image: data.img[0] };
+    // const res = await axios.post(img_hosting_api, imgFile, {
+    //   headers: { "content-type": "multipart/form-data" },
+    // });
+    // const result = await axiosSecure.post(
+    //   `${import.meta.env.VITE_API_URL}/add-session`,
+    //   {
+    //     ...data,
+    //     img: res.data.data.display_url,
+    //   },
+    // );
+    // console.log(result);
 
-    console.log(imgFile);
-    const res = await axios.post(img_hosting_api, imgFile, {
-      headers: { "content-type": "multipart/form-data" },
-    });
-    const result = await axiosSecure.post(
-      `${import.meta.env.VITE_API_URL}/add-session`,
-      {
-        ...data,
-        img: res.data.data.display_url,
-      },
-    );
-    console.log(result);
+    //validate registration dates
+
+    //check if registration date ends before it even starts
+    if (compareDesc(new Date(data.reg_start), new Date(data.reg_end)) === -1) {
+      return toast.error("Invalid registration dates");
+    }
+
+    //check if the registration starting date is not in the past
+    if (compareDesc(new Date(), new Date(data.reg_start)) === -1) {
+      return toast.error("Invalid registration date");
+    }
   };
 
+  console.log(regStartText, regEndText);
   return (
     <FormContext.Provider value={{ register }}>
       <div className="mx-4 px-4 py-10 shadow-2xl sm:mx-6 lg:mx-auto lg:max-w-2xl lg:rounded-lg lg:px-4 lg:py-12">
@@ -59,7 +76,7 @@ function CreateStudySession() {
               label={"Session Image"}
               custom="pt-2"
               name="img"
-              required={true}
+              // required={true}
             />
             {/* tutor */}
             <div className="lg:flex lg:gap-4">
@@ -106,7 +123,9 @@ function CreateStudySession() {
                 id={"reg-start"}
                 name={"reg_start"}
                 required={true}
-                regErrColor={regErrColor}
+                value={regStartText}
+                onChange={(e) => setRegStartText(e.target.value)}
+                regErr={regStartErr}
               />
 
               {/* registration end date */}
@@ -117,6 +136,14 @@ function CreateStudySession() {
                 id={"red-end"}
                 name={"reg_end"}
                 required={true}
+                value={regEndText}
+                regErr={regEndErr}
+                onChange={(e) => {
+                  setRegEndText(e.target.value);
+                  if (compareDesc(new Date(e.target.value), new Date()) === 1) {
+                    setRegEndErr(true);
+                  }
+                }}
               />
             </div>
             {/* class start and end date */}
@@ -197,10 +224,7 @@ function CreateStudySession() {
                 id={"status"}
               />
             </div>
-            <button
-              type="submit"
-              className="btn mt-4 bg-blue-700 text-lg text-white transition-all duration-300 hover:bg-blue-500"
-            >
+            <button type="submit" className="form-btn">
               Create session
             </button>
           </div>

@@ -14,6 +14,9 @@
   .authentication-btn {
     @apply btn bg-transparent text-white hover:text-blue-700;
   }
+  .form-btn {
+    @apply btn mt-4 bg-blue-700 text-lg text-white transition-all duration-300 hover:bg-blue-500;
+  }
 }
 option {
   background-color: transparent;
