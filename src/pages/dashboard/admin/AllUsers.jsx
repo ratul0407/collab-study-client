@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
+import UpdateUserRole from "../../../components/modal/UpdateUserRole";
 
 function AllUsers() {
   const axiosSecure = useAxiosSecure();
@@ -69,6 +70,7 @@ function AllUsers() {
             <tr>
               <th></th>
               <th>Name</th>
+              <th>Email</th>
               <th>Role</th>
               <th>Update Role</th>
             </tr>
@@ -80,9 +82,14 @@ function AllUsers() {
                 <tr key={item._id}>
                   <td>{++index}</td>
                   <td>{item.name}</td>
+                  <td>{item.email}</td>
                   <td>{item.role}</td>
                   <td>
-                    <button className="btn btn-ghost">update</button>
+                    <UpdateUserRole
+                      defaultValue={item.role}
+                      id={item._id}
+                      refetch={refetch}
+                    />
                   </td>
                 </tr>
               );
