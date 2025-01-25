@@ -140,6 +140,7 @@ function CreateStudySession() {
       await axiosSecure.post(`${import.meta.env.VITE_API_URL}/add-session`, {
         ...data,
         img: res.data.data.display_url,
+        fee: parseInt(data.fee),
       });
       toast.success("Session created successfully!");
       navigate("/dashboard/your-sessions");
