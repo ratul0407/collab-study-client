@@ -49,7 +49,11 @@ function Navbar() {
             {user ? (
               <>
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link
+                    to={`/dashboard/${role === "student" ? "create-note" : role === "tutor" ? "create-study-session" : "all-users"}`}
+                  >
+                    Dashboard
+                  </Link>
                 </li>
                 <li>
                   <button onClick={logOut}>Log Out</button>
