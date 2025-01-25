@@ -16,6 +16,8 @@ function InputField({
   max,
   required = false,
   onChange,
+  regErr,
+  errorMessage = "",
 }) {
   const { register } = useContext(FormContext);
   return (
@@ -30,12 +32,15 @@ function InputField({
         placeholder={placeholder}
         readOnly={readOnly}
         {...register(name)}
-        className={`input input-bordered w-full ${custom} `}
+        className={`input input-bordered w-full ${custom} ${regErr && "border-dashed border-red-500"}`}
         required={required}
         min={min}
         max={max}
         onChange={onChange}
       />
+      <label className="label-alt text-sm text-red-500">
+        {regErr && errorMessage}
+      </label>
     </div>
   );
 }

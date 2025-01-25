@@ -80,7 +80,7 @@ function AuthProvider({ children }) {
     };
     return () => unSubscribe();
   }, []);
-  console.log("current User --->", user);
+  // console.log("current User --->", user);
   const authInfo = {
     user,
     loading,
