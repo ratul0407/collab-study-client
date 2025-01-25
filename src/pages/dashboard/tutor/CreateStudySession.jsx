@@ -6,11 +6,13 @@ import axios from "axios";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { compareAsc, compareDesc } from "date-fns";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 export const FormContext = createContext(null);
 function CreateStudySession() {
+  const navigate = useNavigate("");
   const [dateInput, setDateInput] = useState({
     regStart: {
       regStartText: "",
@@ -121,7 +123,7 @@ function CreateStudySession() {
 
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  // <a href'imggb' download></a>
+
   const {
     register,
     handleSubmit,
@@ -133,25 +135,16 @@ function CreateStudySession() {
     const res = await axios.post(img_hosting_api, imgFile, {
       headers: { "content-type": "multipart/form-data" },
     });
-    const result = await axiosSecure.post(
-      `${import.meta.env.VITE_API_URL}/add-session`,
-      {
+
+    try {
+      await axiosSecure.post(`${import.meta.env.VITE_API_URL}/add-session`, {
         ...data,
         img: res.data.data.display_url,
-      },
-    );
-    console.log(result);
-
-    //validate registration dates
-
-    //check if registration date ends before it even starts
-    if (compareDesc(new Date(data.reg_start), new Date(data.reg_end)) === -1) {
-      return toast.error("Invalid registration dates");
-    }
-
-    //check if the registration starting date is not in the past
-    if (compareDesc(new Date(), new Date(data.reg_start)) === -1) {
-      return toast.error("Invalid registration date");
+      });
+      toast.success("Session created successfully!");
+      navigate("/dashboard/your-sessions");
+    } catch (err) {
+      toast.error(err);
     }
   };
 

@@ -22,7 +22,7 @@ function YourSessions() {
   return (
     <div>
       <h3 className="dashboard-title">Your sessions</h3>
-      <div>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {sessions.map((session) => {
           return <SessionCard key={session._id} session={session} />;
         })}
