@@ -10,6 +10,7 @@ import TutorRoute from "./TutorRoute";
 import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
+import AllSessions from "../pages/dashboard/admin/AllSessions";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             <AllUsers />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/all-study-sessions",
+        element: <AllSessions />,
       },
     ],
   },

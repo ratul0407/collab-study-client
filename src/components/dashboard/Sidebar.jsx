@@ -3,8 +3,11 @@ import TutorMenu from "./menu/TutorMenu";
 import StudentMenu from "./menu/StudentMenu";
 import useRole from "../../hooks/useRole";
 import AdminMenu from "./menu/AdminMenu";
+import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 function Sidebar() {
+  const { logOut } = useAuth();
   const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open">
@@ -21,7 +24,7 @@ function Sidebar() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-lg font-semibold text-base-content">
+        <ul className="menu min-h-full w-80 p-4 text-lg font-semibold text-base-content">
           {/* Sidebar content here */}
 
           {/* for the student */}
@@ -32,6 +35,13 @@ function Sidebar() {
 
           {/* for admin */}
           {role === "admin" && <AdminMenu />}
+          <div className="divider"></div>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <button onClick={logOut}>Log out</button>
+          </li>
         </ul>
       </div>
     </div>

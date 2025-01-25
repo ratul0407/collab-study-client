@@ -8,6 +8,8 @@ import LoadingSpinner from "../../../components/shared/LoadingSpinner";
 function AllUsers() {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const [search, setSearch] = useState("");
+  const [searchText, setSearchText] = useState("");
   useEffect(() => {
     const getCount = async () => {
       const { data } = await axiosSecure("/usersCount");
@@ -21,31 +23,36 @@ function AllUsers() {
   const numberOfPages = Math.ceil(count / itemsPerPage) || 0;
   // console.log(numberOfPages);
   const pages = [...Array(numberOfPages).keys()];
-  console.log(currentPage);
 
   const {
     data: users = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["users", user?.email, currentPage, itemsPerPage],
+    queryKey: ["users", user?.email, currentPage, itemsPerPage, search],
     queryFn: async () => {
       const { data } = await axiosSecure(
-        `/users/${user?.email}?page=${currentPage}&limit=${itemsPerPage}`,
+        `/users/${user?.email}?page=${currentPage}&limit=${itemsPerPage}&search=${search}`,
       );
       return data;
     },
   });
-
   console.log(users);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch(searchText);
+  };
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="space-y-4">
       <h3 className="dashboard-title">All Users</h3>
 
       <div className="mx-8 flex justify-end">
-        <form className="flex-reverse flex gap-4">
+        <form onSubmit={handleSubmit} className="flex-reverse flex gap-4">
           <input
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
             type="text"
             placeholder="search user"
             className="input input-bordered w-64"
@@ -55,7 +62,7 @@ function AllUsers() {
           </button>
         </form>
       </div>
-      <div className="overflow-x-auto">
+      <div className="min-h-[50vh] overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
@@ -82,6 +89,8 @@ function AllUsers() {
             })}
           </tbody>
         </table>
+      </div>
+      {!search && (
         <div className="space-x-3 text-center">
           <button
             onClick={() => {
@@ -117,7 +126,7 @@ function AllUsers() {
             Next
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 }
