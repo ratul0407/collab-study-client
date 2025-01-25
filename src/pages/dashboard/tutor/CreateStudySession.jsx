@@ -11,12 +11,23 @@ const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 export const FormContext = createContext(null);
 function CreateStudySession() {
-  const [regStartErr, setRegStartErr] = useState(false);
-  const [regEndErr, setRegEndErr] = useState(false);
-  const [regStartText, setRegStartText] = useState("");
-  const [regEndText, setRegEndText] = useState("");
+  const [dateErr, setDateErr] = useState({
+    regStartErr: false,
+    regEndErr: false,
+    classStartErr: false,
+    classEndErr: false,
+  });
+
+  const [dateText, setDateText] = useState({
+    regStartText: "",
+    regEndText: "",
+    classStartText: "",
+    classEndText: "",
+  });
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  console.log(dateText);
+  // <a href'imggb' download></a>
   const {
     register,
     handleSubmit,
@@ -24,18 +35,18 @@ function CreateStudySession() {
   } = useForm();
   const onSubmit = async (data) => {
     //upload the img to imgbb
-    // const imgFile = { image: data.img[0] };
-    // const res = await axios.post(img_hosting_api, imgFile, {
-    //   headers: { "content-type": "multipart/form-data" },
-    // });
-    // const result = await axiosSecure.post(
-    //   `${import.meta.env.VITE_API_URL}/add-session`,
-    //   {
-    //     ...data,
-    //     img: res.data.data.display_url,
-    //   },
-    // );
-    // console.log(result);
+    const imgFile = { image: data.img[0] };
+    const res = await axios.post(img_hosting_api, imgFile, {
+      headers: { "content-type": "multipart/form-data" },
+    });
+    const result = await axiosSecure.post(
+      `${import.meta.env.VITE_API_URL}/add-session`,
+      {
+        ...data,
+        img: res.data.data.display_url,
+      },
+    );
+    console.log(result);
 
     //validate registration dates
 
@@ -119,9 +130,10 @@ function CreateStudySession() {
                 id={"reg-start"}
                 name={"reg_start"}
                 required={true}
-                value={regStartText}
-                onChange={(e) => setRegStartText(e.target.value)}
-                regErr={regStartErr}
+                value={dateText.regStartText}
+                onChange={(e) =>
+                  setDateText({ ...dateText, regStartText: e.target.value })
+                }
               />
 
               {/* registration end date */}
@@ -132,14 +144,10 @@ function CreateStudySession() {
                 id={"red-end"}
                 name={"reg_end"}
                 required={true}
-                value={regEndText}
-                regErr={regEndErr}
-                onChange={(e) => {
-                  setRegEndText(e.target.value);
-                  if (compareDesc(new Date(e.target.value), new Date()) === 1) {
-                    setRegEndErr(true);
-                  }
-                }}
+                value={dateText.regEndText}
+                onChange={(e) =>
+                  setDateText({ ...dateText, regEndText: e.target.value })
+                }
               />
             </div>
             {/* class start and end date */}
@@ -152,6 +160,10 @@ function CreateStudySession() {
                 id={"class-start"}
                 name="class_start"
                 required={true}
+                value={dateText.classStartText}
+                onChange={(e) =>
+                  setDateText({ ...dateText, classStartText: e.target.value })
+                }
               />
 
               {/* class end date */}
@@ -162,6 +174,10 @@ function CreateStudySession() {
                 id={"class-end"}
                 name="class_end"
                 required={true}
+                value={dateText.classEndText}
+                onChange={(e) =>
+                  setDateText({ ...dateText, classEndText: e.target.value })
+                }
               />
             </div>
             {/* session duration */}
@@ -194,6 +210,7 @@ function CreateStudySession() {
                 min="0"
                 max="59"
                 split={true}
+                defaultValue={0}
                 required={true}
               />
             </div>

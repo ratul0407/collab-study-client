@@ -15,7 +15,6 @@ function InputField({
   min,
   max,
   required = false,
-  regErr = false,
   onChange,
 }) {
   const { register } = useContext(FormContext);
@@ -31,7 +30,7 @@ function InputField({
         placeholder={placeholder}
         readOnly={readOnly}
         {...register(name)}
-        className={`input input-bordered w-full border-dashed border-red-500 ${custom} ${regErr && "border-red-500 outline-red-500"}`}
+        className={`input input-bordered w-full ${custom} `}
         required={required}
         min={min}
         max={max}
