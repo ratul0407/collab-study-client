@@ -3,7 +3,7 @@ import { FaCheck } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
-function ApproveSessionModal({ id, refetch }) {
+function ApproveSessionModal({ id, refetch, title }) {
   const [selectedOption, setSelectedOption] = useState("");
   const axiosSecure = useAxiosSecure();
   console.log(id);
@@ -24,7 +24,7 @@ function ApproveSessionModal({ id, refetch }) {
         toast.error(err);
       } finally {
         refetch();
-        document.getElementById(id).close();
+        document.getElementById(title).close();
       }
     }
 
@@ -39,7 +39,7 @@ function ApproveSessionModal({ id, refetch }) {
         toast.error(err);
       } finally {
         refetch();
-        document.getElementById(id).close();
+        document.getElementById(title).close();
       }
     }
   };
@@ -47,11 +47,11 @@ function ApproveSessionModal({ id, refetch }) {
     <div>
       <button
         className="btn"
-        onClick={() => document.getElementById(id).showModal()}
+        onClick={() => document.getElementById(title).showModal()}
       >
         <FaCheck />
       </button>
-      <dialog id={id} className="modal">
+      <dialog id={title} className="modal">
         <div className="modal-box">
           <p className="text-xl">Is the session free or paid?</p>
           <form

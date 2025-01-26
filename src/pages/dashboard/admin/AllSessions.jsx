@@ -19,15 +19,18 @@ function AllSessions() {
       return data;
     },
   });
-  console.log(sessions);
+  const approved = sessions?.Approved;
+  const pending = sessions?.Pending;
+  const rejected = sessions?.Rejected;
+  console.log(approved, pending);
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="space-y-10">
       <h3 className="dashboard-title">All the study sessions</h3>
       {/* pending sessions */}
 
-      <div className="pb-20">
-        <h3 className="text-xl font-bold text-blue-500">Pending sessions</h3>
+      <div className="pb-10">
+        <h3 className="text-xl font-bold text-yellow-500">Pending sessions</h3>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
@@ -44,15 +47,14 @@ function AllSessions() {
             </thead>
             <tbody>
               {/* row 1 */}
-              {sessions.map((session, index) => {
+              {pending?.map((session, index) => {
                 return (
-                  session.status === "Pending" && (
-                    <SessionRow
-                      key={session._id}
-                      session={session}
-                      refetch={refetch}
-                    />
-                  )
+                  <SessionRow
+                    key={session._id}
+                    session={session}
+                    refetch={refetch}
+                    status="Pending"
+                  />
                 );
               })}
             </tbody>
@@ -61,8 +63,8 @@ function AllSessions() {
       </div>
 
       {/* approved sessions */}
-      <div>
-        <h3 className="text-xl font-bold text-blue-500">Approved sessions</h3>
+      <div className="pb-10">
+        <h3 className="text-xl font-bold text-green-500">Approved sessions</h3>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
@@ -79,11 +81,48 @@ function AllSessions() {
             </thead>
             <tbody>
               {/* row 1 */}
-              {sessions.map((session) => {
+              {approved?.map((session) => {
                 return (
-                  session.status === "Approved" && (
-                    <SessionRow key={session._id} session={session} />
-                  )
+                  <SessionRow
+                    key={session._id}
+                    session={session}
+                    refetch={refetch}
+                    status="Approved"
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* rejected sessions */}
+      <div>
+        <h3 className="text-xl font-bold text-red-500">Rejected sessions</h3>
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Tutor Email</th>
+                <th>Tutor Name</th>
+                <th>Session Title</th>
+                <th>Status</th>
+                <th>Fee</th>
+                <th>Update Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              {rejected?.map((session) => {
+                return (
+                  <SessionRow
+                    key={session._id}
+                    session={session}
+                    refetch={refetch}
+                    status="Approved"
+                  />
                 );
               })}
             </tbody>

@@ -1,7 +1,10 @@
 import { MdDelete } from "react-icons/md";
 import ApproveSessionModal from "../../modal/ApproveSessionModal";
+import { ImCross } from "react-icons/im";
+import { FaPen } from "react-icons/fa";
+import RejectionModal from "../../modal/RejectionModal";
 
-function SessionRow({ session, refetch }) {
+function SessionRow({ session, refetch, status }) {
   return (
     <tr key={session._id}>
       <td>
@@ -13,13 +16,29 @@ function SessionRow({ session, refetch }) {
       <td>{session.status}</td>
       <td>{session.fee}</td>
       <td className="space-x-4">
-        <div className="tooltip" data-tip="approve">
-          <ApproveSessionModal refetch={refetch} id={session._id} />
+        <div
+          className="tooltip"
+          data-tip={`${status === "Pending" ? "approve" : "update"}`}
+        >
+          {status === "Pending" ? (
+            <ApproveSessionModal
+              refetch={refetch}
+              id={session._id}
+              title={session.title}
+            />
+          ) : (
+            <FaPen />
+          )}
         </div>
-        <div className="tooltip" data-tip="reject">
-          <button className="btn">
+        <div
+          className="tooltip"
+          data-tip={`${status === "Pending" ? "reject" : "delete"}`}
+        >
+          {status === "Pending" ? (
+            <RejectionModal refetch={refetch} id={session._id} />
+          ) : (
             <MdDelete />
-          </button>
+          )}
         </div>
       </td>
     </tr>

@@ -15,6 +15,7 @@ function Login() {
       navigate("/");
     } catch (err) {
       console.log(err);
+      toast.error(err.message);
     }
   };
   return (
