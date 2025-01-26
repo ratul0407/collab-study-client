@@ -11,11 +11,20 @@ import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
 import AllSessions from "../pages/dashboard/admin/AllSessions";
+import SessionDetails from "../pages/SessionDetails";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },
+  {
+    path: "/session/:id",
+    element: (
+      <PrivateRoute>
+        <SessionDetails />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/dashboard",

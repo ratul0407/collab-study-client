@@ -10,8 +10,8 @@ function SessionRow({ session, refetch, status }) {
       <td>
         <img className="h-10 w-20 object-cover" src={session.img} />
       </td>
-      <td>{session?.["tutor-email"]}</td>
-      <td>{session?.["tutor-name"]}</td>
+      <td>{session?.tutor_email}</td>
+      <td>{session?.tutor_name}</td>
       <td>{session.title}</td>
       <td>{session.status}</td>
       <td>{session.fee}</td>

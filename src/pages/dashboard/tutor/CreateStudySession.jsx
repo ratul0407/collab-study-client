@@ -33,6 +33,7 @@ function CreateStudySession() {
         ...data,
         img: res.data.data.display_url,
         fee: parseInt(data.fee),
+        rating: 0,
       });
       toast.success("Session created successfully!");
       navigate("/dashboard/your-sessions");
@@ -70,11 +71,11 @@ function CreateStudySession() {
               {/* tutor email */}
               <InputField
                 label={"Tutor Email"}
-                name={"tutor-email"}
+                name="tutor_email"
                 readOnly={true}
                 defaultValue={user?.email}
                 split={true}
-                id={"tutor-email"}
+                id="tutor_email"
               />
 
               {/* tutor name */}
@@ -82,10 +83,10 @@ function CreateStudySession() {
                 label={"Tutor Name"}
                 readOnly={true}
                 defaultValue={user?.displayName}
-                name={"tutor-name"}
+                name="tutor_name"
                 split={true}
                 type={"text"}
-                id={"tutor-name"}
+                id="tutor_name"
               />
             </div>
             {/* description */}

@@ -1,10 +1,12 @@
 import { isAfter, isBefore, parse } from "date-fns";
 import useRole from "../../../hooks/useRole";
+import { Link } from "react-router-dom";
 
 function SessionCard({ session }) {
   console.log(session);
   console.log(session);
   const {
+    _id,
     img,
     title,
     description,
@@ -55,11 +57,15 @@ function SessionCard({ session }) {
           <p
             className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
           >
-            {closed ? "Closed" : "Ongoing"}
+            Registrations: {closed ? "Closed" : "Ongoing"}
           </p>
         )}
 
-        {!closed && <button className="btn">Read More</button>}
+        {role === "student" && (
+          <Link to={`/session/${_id}`} className="btn">
+            Read More
+          </Link>
+        )}
       </div>
     </div>
   );

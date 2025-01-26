@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import SessionCard from "../components/dashboard/tutor/SessionCard";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 function Root() {
   const { user } = useAuth();
@@ -21,6 +22,7 @@ function Root() {
       return data;
     },
   });
+  if (isLoading) return <LoadingSpinner />;
   console.log(sessions);
   return (
     <div className="font-montserrat font-normal">
