@@ -15,6 +15,7 @@ function InputField({
   min,
   max,
   required = false,
+  errorMessage = "",
 }) {
   const { register } = useContext(FormContext);
   return (
@@ -34,9 +35,7 @@ function InputField({
         min={min}
         max={max}
       />
-      {/* <label className="label-alt text-sm text-red-500">
-        {regErr && errorMessage}
-      </label> */}
+      <label className="label-alt text-sm text-red-500">{errorMessage}</label>
     </div>
   );
 }

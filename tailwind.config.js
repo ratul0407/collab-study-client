@@ -11,6 +11,7 @@ export default {
       backgroundImage: {
         "blue-sky": 'url("./assets/blue-sky.jpg")',
         "blue-horizon": 'url("./assets/blue-horizon.jpg")',
+        banner: 'url("./assets/banner.jpg")',
       },
     },
   },
