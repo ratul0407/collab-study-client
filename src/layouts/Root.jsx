@@ -4,26 +4,25 @@ import Banner from "../components/Home/Banner";
 import Footer from "../components/Home/Footer";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import SessionCard from "../components/dashboard/tutor/SessionCard";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import axios from "axios";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import AllTutors from "../components/Home/AllTutors";
 
 function Root() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const {
-    data: sessions = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: ["sessions", user?.email],
+
+  const { data: sessions = [], isLoading } = useQuery({
+    queryKey: ["home-sessions"],
     queryFn: async () => {
-      const { data } = await axiosSecure("/sessions-home");
+      const { data } = await axiosSecure.get("/sessions-home");
       return data;
     },
   });
   if (isLoading) return <LoadingSpinner />;
-  console.log(sessions);
   return (
     <div className="font-montserrat font-normal">
       <div className="mx-auto w-11/12 py-2 md:py-4">
@@ -41,7 +40,26 @@ function Root() {
           })}
         </div>
       </section>
-
+      <section>
+        <h3 className="text-center text-3xl font-bold">Tutors</h3>
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th></th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <AllTutors />
+            </tbody>
+          </table>
+        </div>
+      </section>
       <Footer />
     </div>
   );

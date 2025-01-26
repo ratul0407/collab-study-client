@@ -3,8 +3,6 @@ import useRole from "../../../hooks/useRole";
 import { Link } from "react-router-dom";
 
 function SessionCard({ session }) {
-  console.log(session);
-  console.log(session);
   const {
     _id,
     img,
@@ -22,7 +20,6 @@ function SessionCard({ session }) {
   const { role } = useRole();
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
-  console.log(closed);
   return (
     <div className="card mx-auto w-72 border bg-base-100 shadow-xl sm:w-96 2xl:w-11/12">
       <figure>

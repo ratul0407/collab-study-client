@@ -12,6 +12,7 @@ import ManageNotes from "../pages/dashboard/student/ManageNotes";
 import AllUsers from "../pages/dashboard/admin/AllUsers";
 import AllSessions from "../pages/dashboard/admin/AllSessions";
 import SessionDetails from "../pages/SessionDetails";
+import BookedSession from "../pages/dashboard/student/BookedSession";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             </TutorRoute>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/booked-session",
+        element: <BookedSession />,
       },
       {
         path: "/dashboard/create-note",

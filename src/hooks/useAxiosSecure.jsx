@@ -1,6 +1,5 @@
 import axios from "axios";
 import useAuth from "./useAuth";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({

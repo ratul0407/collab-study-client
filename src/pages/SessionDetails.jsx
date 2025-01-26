@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { isBefore, parse } from "date-fns";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import toast from "react-hot-toast";
 
 function SessionDetails() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate("");
   const { id } = useParams();
   console.log(id);
   const { data: session = [], isLoading } = useQuery({
@@ -21,6 +23,7 @@ function SessionDetails() {
   if (isLoading) return <LoadingSpinner />;
   const {
     title,
+    _id,
     img,
     description,
     reg_end,
@@ -36,7 +39,19 @@ function SessionDetails() {
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
 
-  const handleBooking = async () => {};
+  const handleBooking = async () => {
+    try {
+      await axiosSecure.post("/booked-sessions", {
+        student: user?.email,
+        sessionId: _id,
+        tutor: tutor_email,
+      });
+      toast.success("Session Booking successful!");
+      navigate("/dashboard/booked-session");
+    } catch (err) {
+      toast.error(err);
+    }
+  };
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="card max-w-[600px] bg-base-100 shadow-xl">
@@ -60,7 +75,11 @@ function SessionDetails() {
           </p>
 
           <div className="card-actions justify-end">
-            <button disabled={closed} className="form-btn btn">
+            <button
+              onClick={handleBooking}
+              disabled={closed}
+              className="form-btn btn"
+            >
               {closed ? "Registration Closed" : "Book now"}
             </button>
           </div>
