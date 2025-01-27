@@ -4,6 +4,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 import SessionRow from "../../../components/dashboard/admin/SessionRow";
 import LoadingSpinner from "../../../components/shared/LoadingSpinner";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 function AllSessions() {
   const { user } = useAuth();
@@ -23,6 +25,31 @@ function AllSessions() {
   const pending = sessions?.Pending;
   const rejected = sessions?.Rejected;
   console.log(approved, pending);
+  const handleDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const { data } = await axiosSecure.delete(`/session/${id}`);
+        console.log(data);
+        if (data.deletedCount > 0) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Session has been deleted",
+            icon: "success",
+          });
+          refetch();
+        }
+      }
+    });
+  };
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="space-y-10">
@@ -87,6 +114,7 @@ function AllSessions() {
                     key={session._id}
                     session={session}
                     refetch={refetch}
+                    handleDelete={handleDelete}
                     status="Approved"
                   />
                 );

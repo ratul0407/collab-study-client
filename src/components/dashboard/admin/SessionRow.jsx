@@ -5,7 +5,7 @@ import { FaPen } from "react-icons/fa";
 import RejectionModal from "../../modal/RejectionModal";
 import { Link } from "react-router-dom";
 
-function SessionRow({ session, refetch, status }) {
+function SessionRow({ session, refetch, status, handleDelete }) {
   return (
     <tr key={session._id}>
       <td>
@@ -40,7 +40,9 @@ function SessionRow({ session, refetch, status }) {
           {status === "Pending" ? (
             <RejectionModal refetch={refetch} id={session._id} />
           ) : (
-            <MdDelete />
+            <button className="btn" onClick={() => handleDelete(session._id)}>
+              <MdDelete />
+            </button>
           )}
         </div>
       </td>

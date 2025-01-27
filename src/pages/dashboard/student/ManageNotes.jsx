@@ -36,7 +36,7 @@ function ManageNotes() {
           if (res.data.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "The note has been deleted",
               icon: "success",
             });
             refetch();

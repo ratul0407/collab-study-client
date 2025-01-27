@@ -35,7 +35,7 @@ function MaterialsTutor() {
         await axiosSecure.delete(`/materials/${id}`);
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "the material has been deleted",
           icon: "success",
         });
       }
