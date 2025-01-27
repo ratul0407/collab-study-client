@@ -1,27 +1,27 @@
-import { Outlet } from "react-router-dom";
 import Navbar from "../components/shared/Navbar";
 import Banner from "../components/Home/Banner";
 import Footer from "../components/Home/Footer";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../hooks/useAuth";
+
 import SessionCard from "../components/dashboard/tutor/SessionCard";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import axios from "axios";
-import useAxiosSecure from "../hooks/useAxiosSecure";
-import useAxiosPublic from "../hooks/useAxiosPublic";
+
 import AllTutors from "../components/Home/AllTutors";
+import HomePageSessionCard from "../components/Home/HomePageSessionCard";
 
 function Root() {
-  const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
-
   const { data: sessions = [], isLoading } = useQuery({
     queryKey: ["home-sessions"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/sessions-home");
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/sessions-home`,
+      );
+      console.log(data);
       return data;
     },
   });
+  console.log(sessions);
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="font-montserrat font-normal">
@@ -36,7 +36,7 @@ function Root() {
         <h3 className="text-center text-3xl font-bold">Popular Sessions🔥</h3>
         <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {sessions?.map((session) => {
-            return <SessionCard session={session} key={session._id} />;
+            return <HomePageSessionCard session={session} key={session._id} />;
           })}
         </div>
       </section>

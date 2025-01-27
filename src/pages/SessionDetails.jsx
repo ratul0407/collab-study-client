@@ -5,13 +5,14 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { isBefore, parse } from "date-fns";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import toast from "react-hot-toast";
+import useRole from "../hooks/useRole";
 
 function SessionDetails() {
   const { user } = useAuth();
+  const { role } = useRole();
+  const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate("");
-  const { id } = useParams();
-  console.log(id);
   const { data: session = [], isLoading } = useQuery({
     queryKey: ["session", id],
     queryFn: async () => {
@@ -35,19 +36,21 @@ function SessionDetails() {
     mins,
     rating,
     tutor_name,
+    tutor_email,
   } = session || {};
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
-
   const handleBooking = async () => {
+    console.log("i was clicked");
     try {
-      await axiosSecure.post("/booked-sessions", {
+      const data = await axiosSecure.post("/booked-session", {
         student: user?.email,
         sessionId: _id,
         tutor: tutor_email,
       });
-      toast.success("Session Booking successful!");
-      navigate("/dashboard/booked-session");
+      console.log(data);
+      // toast.error(data);
+      // navigate("/dashboard/booked-session");
     } catch (err) {
       toast.error(err);
     }
@@ -77,10 +80,14 @@ function SessionDetails() {
           <div className="card-actions justify-end">
             <button
               onClick={handleBooking}
-              disabled={closed}
+              disabled={closed || role !== "student"}
               className="form-btn btn"
             >
-              {closed ? "Registration Closed" : "Book now"}
+              {closed
+                ? "Registration Closed"
+                : role !== "student"
+                  ? "You Can't book"
+                  : "Book now"}
             </button>
           </div>
         </div>

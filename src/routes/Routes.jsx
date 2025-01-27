@@ -13,6 +13,7 @@ import AllUsers from "../pages/dashboard/admin/AllUsers";
 import AllSessions from "../pages/dashboard/admin/AllSessions";
 import SessionDetails from "../pages/SessionDetails";
 import BookedSession from "../pages/dashboard/student/BookedSession";
+import UploadMaterial from "../pages/dashboard/tutor/UploadMaterial";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,16 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateStudySession />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/upload-material",
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <UploadMaterial />
+            </TutorRoute>
           </PrivateRoute>
         ),
       },

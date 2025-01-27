@@ -1,8 +1,6 @@
 import { isBefore, parse } from "date-fns";
-import useRole from "../../../hooks/useRole";
-import { Link, useParams } from "react-router-dom";
-
-function SessionCard({ session }) {
+import { Link } from "react-router-dom";
+function HomePageSessionCard({ session }) {
   const {
     _id,
     img,
@@ -17,9 +15,7 @@ function SessionCard({ session }) {
     hours,
     mins,
   } = session || {};
-  const { params } = useParams();
-  console.log(params);
-  const { role } = useRole();
+
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
   return (
@@ -28,16 +24,7 @@ function SessionCard({ session }) {
         <img className="h-64 w-full object-cover" src={img} alt="Shoes" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">
-          {title}
-          {role !== "student" && (
-            <div
-              className={`badge ${status === "Pending" ? "bg-yellow-400" : status === "Rejected" ? "bg-red-400" : "bg-green-400"}`}
-            >
-              {status}
-            </div>
-          )}
-        </h2>
+        <h2 className="card-title">{title}</h2>
         <p>{description.substring(0, 100)}.... </p>
         <p className="font-bold">Registration Starts: {reg_start}</p>
         <p className="font-bold">Registration Ends: {reg_end}</p>
@@ -47,18 +34,11 @@ function SessionCard({ session }) {
         <p className="font-bold">
           Session Duration: {hours}hrs and {mins}mins
         </p>
-        {role !== "student" && status === "Rejected" && (
-          <div className="card-actions justify-end">
-            <button className="btn">Request to approve</button>
-          </div>
-        )}
-        {role === "student" && (
-          <p
-            className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
-          >
-            Registrations: {closed ? "Closed" : "Ongoing"}
-          </p>
-        )}
+        <p
+          className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
+        >
+          Registrations: {closed ? "Closed" : "Ongoing"}
+        </p>
 
         <Link to={`/session/${_id}`} className="btn">
           Read More
@@ -68,4 +48,4 @@ function SessionCard({ session }) {
   );
 }
 
-export default SessionCard;
+export default HomePageSessionCard;
