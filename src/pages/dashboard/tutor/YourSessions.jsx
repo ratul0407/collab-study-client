@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SessionCard from "../../../components/dashboard/tutor/SessionCard";
+import toast from "react-hot-toast";
 
 function YourSessions() {
   const { user } = useAuth();
@@ -18,13 +19,31 @@ function YourSessions() {
     },
   });
 
+  const handleRequest = async (id) => {
+    try {
+      await axiosSecure.patch(`/session/${id}`, { status: "Pending" });
+      toast.success(
+        "Request sent successfully. Please wait for admins approval",
+      );
+    } catch (err) {
+      toast.error("Something went wrong please try again later!");
+    } finally {
+      refetch();
+    }
+  };
   console.log(sessions);
   return (
     <div>
       <h3 className="dashboard-title">Your sessions</h3>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {sessions.map((session) => {
-          return <SessionCard key={session._id} session={session} />;
+          return (
+            <SessionCard
+              key={session._id}
+              session={session}
+              handleRequest={handleRequest}
+            />
+          );
         })}
       </div>
     </div>

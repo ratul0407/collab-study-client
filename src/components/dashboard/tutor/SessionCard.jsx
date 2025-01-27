@@ -2,7 +2,7 @@ import { isBefore, parse } from "date-fns";
 import useRole from "../../../hooks/useRole";
 import { Link, useParams } from "react-router-dom";
 
-function SessionCard({ session }) {
+function SessionCard({ session, handleRequest }) {
   const {
     _id,
     img,
@@ -46,17 +46,18 @@ function SessionCard({ session }) {
         <p className="font-bold">
           Session Duration: {hours}hrs and {mins}mins
         </p>
-        {status === "Rejected" && (
-          <div className="card-actions justify-end">
-            <button className="btn">Request to approve</button>
-          </div>
-        )}
-
         <p
           className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
         >
           Registrations: {closed ? "Closed" : "Ongoing"}
         </p>
+        {status === "Rejected" && (
+          <div className="card-actions justify-end">
+            <button onClick={() => handleRequest(_id)} className="btn">
+              Request to approve
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
