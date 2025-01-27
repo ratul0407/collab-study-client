@@ -30,13 +30,12 @@ function SessionCard({ session }) {
       <div className="card-body">
         <h2 className="card-title">
           {title}
-          {role !== "student" && (
-            <div
-              className={`badge ${status === "Pending" ? "bg-yellow-400" : status === "Rejected" ? "bg-red-400" : "bg-green-400"}`}
-            >
-              {status}
-            </div>
-          )}
+
+          <div
+            className={`badge ${status === "Pending" ? "bg-yellow-400" : status === "Rejected" ? "bg-red-400" : "bg-green-400"}`}
+          >
+            {status}
+          </div>
         </h2>
         <p>{description.substring(0, 100)}.... </p>
         <p className="font-bold">Registration Starts: {reg_start}</p>
@@ -47,22 +46,17 @@ function SessionCard({ session }) {
         <p className="font-bold">
           Session Duration: {hours}hrs and {mins}mins
         </p>
-        {role !== "student" && status === "Rejected" && (
+        {status === "Rejected" && (
           <div className="card-actions justify-end">
             <button className="btn">Request to approve</button>
           </div>
         )}
-        {role === "student" && (
-          <p
-            className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
-          >
-            Registrations: {closed ? "Closed" : "Ongoing"}
-          </p>
-        )}
 
-        <Link to={`/session/${_id}`} className="btn">
-          Read More
-        </Link>
+        <p
+          className={`w-fit rounded-xl ${closed ? "bg-red-500" : "bg-green-500"} p-1 font-bold text-white`}
+        >
+          Registrations: {closed ? "Closed" : "Ongoing"}
+        </p>
       </div>
     </div>
   );

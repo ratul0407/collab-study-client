@@ -4,7 +4,7 @@ import Sidebar from "../../components/dashboard/Sidebar";
 function Dashboard() {
   return (
     <div className="lg:flex lg:gap-4">
-      <aside className="bg-blue-100">
+      <aside className="relative z-10 bg-blue-100">
         <Sidebar />
       </aside>
       <main className="mt-10 w-full">

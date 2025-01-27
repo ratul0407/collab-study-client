@@ -44,6 +44,7 @@ function Login() {
                 type="text"
                 className="grow"
                 placeholder="Email"
+                required
               />
             </label>
             <label className="input-field">
@@ -64,6 +65,7 @@ function Login() {
                 type="password"
                 className="grow"
                 placeholder="password"
+                required
               />
             </label>
             <button type="submit" className="authentication-btn">

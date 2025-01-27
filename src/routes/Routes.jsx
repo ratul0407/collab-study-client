@@ -14,6 +14,7 @@ import AllSessions from "../pages/dashboard/admin/AllSessions";
 import SessionDetails from "../pages/SessionDetails";
 import BookedSession from "../pages/dashboard/student/BookedSession";
 import UploadMaterial from "../pages/dashboard/tutor/UploadMaterial";
+import SessionRating from "../pages/dashboard/student/SessionRating";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateNote />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/session-rating/:id",
+        element: (
+          <PrivateRoute>
+            <SessionRating />
           </PrivateRoute>
         ),
       },

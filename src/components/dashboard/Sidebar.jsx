@@ -24,7 +24,7 @@ function Sidebar() {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu min-h-full w-80 p-4 text-lg font-semibold text-base-content">
+        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-lg font-semibold text-base-content">
           {/* Sidebar content here */}
 
           {/* for the student */}

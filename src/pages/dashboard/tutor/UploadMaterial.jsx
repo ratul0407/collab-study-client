@@ -21,20 +21,23 @@ function UploadMaterial() {
   return (
     <div>
       <h3 className="dashboard-title">Select session to upload material</h3>
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Shoes!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {sessions?.map((session) => {
+          return (
+            <div key={session._id} className="card w-96 bg-base-100 shadow-xl">
+              <figure>
+                <img src={session.img} alt="Shoes" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{session.title}</h2>
+                <p>{session.description.substring(0, 100)}....</p>
+                <div className="card-actions justify-end">
+                  <button className="form-btn">Upload Material</button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

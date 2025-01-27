@@ -43,16 +43,22 @@ function SessionDetails() {
   const handleBooking = async () => {
     console.log("i was clicked");
     try {
-      const data = await axiosSecure.post("/booked-session", {
+      const response = await axiosSecure.post("/booked-session", {
         student: user?.email,
         sessionId: _id,
         tutor: tutor_email,
       });
-      console.log(data);
-      // toast.error(data);
-      // navigate("/dashboard/booked-session");
+      if (response.status === 200) {
+        toast.success("Booking Successful");
+        navigate("/dashboard/booked-session");
+      }
     } catch (err) {
-      toast.error(err);
+      if (err?.response.status === 409) {
+        console.log(err);
+        toast.error(err?.response.data.message);
+      } else {
+        toast.error("Something went wrong! Please try again later!");
+      }
     }
   };
   return (
