@@ -3,14 +3,17 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
 function UploadMaterialModal({ id }) {
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate("");
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const title = form.title.value;
     const link = form.link.value;
@@ -32,12 +35,14 @@ function UploadMaterialModal({ id }) {
     };
     try {
       await axiosSecure.post("/materials", material);
+
       toast.success("Material saved");
       navigate("/dashboard/view-materials-tutor");
     } catch (err) {
       toast.error("Something went wrong! please try again later!");
     } finally {
       document.getElementById(id).close();
+      setLoading(false);
     }
   };
   return (
@@ -117,7 +122,7 @@ function UploadMaterialModal({ id }) {
                 required
               />
             </div>
-            <button className="form-btn" type="submit">
+            <button disabled={loading} className="form-btn" type="submit">
               Upload Material
             </button>
           </form>
