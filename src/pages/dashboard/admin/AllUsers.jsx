@@ -20,7 +20,7 @@ function AllUsers() {
   }, []);
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 2;
+  const itemsPerPage = 4;
   const numberOfPages = Math.ceil(count / itemsPerPage) || 0;
   // console.log(numberOfPages);
   const pages = [...Array(numberOfPages).keys()];

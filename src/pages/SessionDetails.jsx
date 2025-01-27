@@ -6,6 +6,7 @@ import { isBefore, parse } from "date-fns";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
+import PaymentModal from "../components/modal/PaymentModal";
 
 function SessionDetails() {
   const { user } = useAuth();
@@ -84,17 +85,21 @@ function SessionDetails() {
           </p>
 
           <div className="card-actions justify-end">
-            <button
-              onClick={handleBooking}
-              disabled={closed || role !== "student"}
-              className="form-btn btn"
-            >
-              {closed
-                ? "Registration Closed"
-                : role !== "student"
-                  ? "You Can't book"
-                  : "Book now"}
-            </button>
+            {fee > 0 ? (
+              <PaymentModal tutorEmail={tutor_email} id={_id} fee={fee} />
+            ) : (
+              <button
+                onClick={handleBooking}
+                disabled={closed || role !== "student"}
+                className="form-btn btn"
+              >
+                {closed
+                  ? "Registration Closed"
+                  : role !== "student"
+                    ? "You Can't book"
+                    : "Book now"}
+              </button>
+            )}
           </div>
         </div>
       </div>

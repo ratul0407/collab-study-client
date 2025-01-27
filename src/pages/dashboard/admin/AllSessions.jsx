@@ -138,7 +138,6 @@ function AllSessions() {
                 <th>Session Title</th>
                 <th>Status</th>
                 <th>Fee</th>
-                <th>Update Status</th>
               </tr>
             </thead>
             <tbody>
@@ -149,7 +148,7 @@ function AllSessions() {
                     key={session._id}
                     session={session}
                     refetch={refetch}
-                    status="Approved"
+                    status="Rejected"
                   />
                 );
               })}

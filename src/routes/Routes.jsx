@@ -81,7 +81,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/booked-session",
-        element: <BookedSession />,
+        element: (
+          <PrivateRoute>
+            <BookedSession />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/create-note",

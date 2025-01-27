@@ -6,6 +6,7 @@ import RejectionModal from "../../modal/RejectionModal";
 import { Link } from "react-router-dom";
 
 function SessionRow({ session, refetch, status, handleDelete }) {
+  console.log(session);
   return (
     <tr key={session._id}>
       <td>
@@ -16,36 +17,39 @@ function SessionRow({ session, refetch, status, handleDelete }) {
       <td>{session.title}</td>
       <td>{session.status}</td>
       <td>{session.fee}</td>
-      <td className="space-x-4">
-        <div
-          className="tooltip"
-          data-tip={`${status === "Pending" ? "approve" : "update"}`}
-        >
-          {status === "Pending" ? (
-            <ApproveSessionModal
-              refetch={refetch}
-              id={session._id}
-              title={session.title}
-            />
-          ) : (
-            <Link className="btn" to={`/update-session/${session._id}`}>
-              <FaPen />
-            </Link>
-          )}
-        </div>
-        <div
-          className="tooltip"
-          data-tip={`${status === "Pending" ? "reject" : "delete"}`}
-        >
-          {status === "Pending" ? (
-            <RejectionModal refetch={refetch} id={session._id} />
-          ) : (
-            <button className="btn" onClick={() => handleDelete(session._id)}>
-              <MdDelete />
-            </button>
-          )}
-        </div>
-      </td>
+      {status !== "Rejected" && (
+        <td className="space-x-4">
+          <div
+            className="tooltip"
+            data-tip={`${status === "Pending" ? "approve" : "update"}`}
+          >
+            {status === "Pending" ? (
+              <ApproveSessionModal
+                refetch={refetch}
+                id={session._id}
+                title={session.title}
+              />
+            ) : (
+              <Link className="btn" to={`/update-session/${session._id}`}>
+                <FaPen />
+              </Link>
+            )}
+          </div>
+
+          <div
+            className="tooltip"
+            data-tip={`${status === "Pending" ? "reject" : "delete"}`}
+          >
+            {status === "Pending" ? (
+              <RejectionModal refetch={refetch} id={session._id} />
+            ) : (
+              <button className="btn" onClick={() => handleDelete(session._id)}>
+                <MdDelete />
+              </button>
+            )}
+          </div>
+        </td>
+      )}
     </tr>
   );
 }
