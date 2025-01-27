@@ -18,6 +18,7 @@ import SessionRating from "../pages/dashboard/student/SessionRating";
 import MaterialsTutor from "../pages/dashboard/tutor/MaterialsTutor";
 import AdminRoute from "./AdminRoute";
 import UpdateSession from "../pages/dashboard/admin/UpdateSession";
+import MaterialsAdmin from "../pages/dashboard/admin/MaterialsAdmin";
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <AllSessions />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/view-materials-admin",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <MaterialsAdmin />
             </AdminRoute>
           </PrivateRoute>
         ),

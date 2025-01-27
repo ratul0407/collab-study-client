@@ -14,16 +14,20 @@ function UpdateMaterialModal({ id, material, refetch }) {
     const link = form.link.value;
     const title = form.title.value;
     const img = form.img.files[0];
+    let image;
+    if (img) {
+      const imgFile = { image: img };
+      const res = await axios.post(img_hosting_api, imgFile, {
+        headers: { "content-type": "multipart/form-data" },
+      });
+    }
 
-    const imgFile = { image: img };
-    const res = await axios.post(img_hosting_api, imgFile, {
-      headers: { "content-type": "multipart/form-data" },
-    });
-
+    image = !img ? null : res?.data?.data?.display_url;
     const material = {
       title,
       link,
-      image: res?.data?.data?.display_url,
+      image,
+      sessionId: id,
     };
 
     try {
@@ -42,7 +46,7 @@ function UpdateMaterialModal({ id, material, refetch }) {
         className="btn"
         onClick={() => document.getElementById(id).showModal()}
       >
-        Upload Material
+        Update Material
       </button>
       <dialog id={id} className="modal">
         <div className="modal-box">
@@ -95,7 +99,6 @@ function UpdateMaterialModal({ id, material, refetch }) {
               </label>
               <input
                 type="file"
-                required
                 name="img"
                 className="input input-bordered w-full pt-2"
               />
