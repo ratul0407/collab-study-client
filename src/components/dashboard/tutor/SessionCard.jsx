@@ -1,6 +1,7 @@
 import { isBefore, parse } from "date-fns";
 import useRole from "../../../hooks/useRole";
 import { Link, useParams } from "react-router-dom";
+import ShowRejectionReasonModal from "../../modal/ShowRejectionReasonModal";
 
 function SessionCard({ session, handleRequest }) {
   const {
@@ -53,6 +54,7 @@ function SessionCard({ session, handleRequest }) {
         </p>
         {status === "Rejected" && (
           <div className="card-actions justify-end">
+            <ShowRejectionReasonModal session={session} />
             <button onClick={() => handleRequest(_id)} className="btn">
               Request to approve
             </button>

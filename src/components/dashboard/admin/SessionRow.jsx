@@ -3,6 +3,7 @@ import ApproveSessionModal from "../../modal/ApproveSessionModal";
 import { ImCross } from "react-icons/im";
 import { FaPen } from "react-icons/fa";
 import RejectionModal from "../../modal/RejectionModal";
+import { Link } from "react-router-dom";
 
 function SessionRow({ session, refetch, status }) {
   return (
@@ -27,7 +28,9 @@ function SessionRow({ session, refetch, status }) {
               title={session.title}
             />
           ) : (
-            <FaPen />
+            <Link className="btn" to={`/update-session/${session._id}`}>
+              <FaPen />
+            </Link>
           )}
         </div>
         <div

@@ -10,7 +10,7 @@ function RejectionModal({ refetch, id }) {
     const reason = form.reason.value;
     const feedback = form.feedback.value;
     try {
-      await axiosSecure.post(`/reject-session/${id}`, {
+      await axiosSecure.patch(`/reject-session/${id}`, {
         status: "Rejected",
         reason,
         feedback,

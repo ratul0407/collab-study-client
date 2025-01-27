@@ -64,7 +64,7 @@ function CreateStudySession() {
               label={"Session Image"}
               custom="pt-2"
               name="img"
-              // required={true}
+              required={true}
             />
             {/* tutor */}
             <div className="lg:flex lg:gap-4">

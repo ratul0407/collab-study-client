@@ -16,6 +16,8 @@ import BookedSession from "../pages/dashboard/student/BookedSession";
 import UploadMaterial from "../pages/dashboard/tutor/UploadMaterial";
 import SessionRating from "../pages/dashboard/student/SessionRating";
 import MaterialsTutor from "../pages/dashboard/tutor/MaterialsTutor";
+import AdminRoute from "./AdminRoute";
+import UpdateSession from "../pages/dashboard/admin/UpdateSession";
 
 const router = createBrowserRouter([
   {
@@ -108,15 +110,33 @@ const router = createBrowserRouter([
         path: "/dashboard/all-users",
         element: (
           <PrivateRoute>
-            <AllUsers />
+            <AdminRoute>
+              <AllUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
       {
         path: "/dashboard/all-study-sessions",
-        element: <AllSessions />,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllSessions />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
+  },
+  {
+    path: "/update-session/:id",
+    element: (
+      <PrivateRoute>
+        <AdminRoute>
+          <UpdateSession />
+        </AdminRoute>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/sign-up",
