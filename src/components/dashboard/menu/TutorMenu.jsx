@@ -15,7 +15,9 @@ function TutorMenu() {
         <NavLink to="/dashboard/upload-material">Upload material</NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/view-all-materials">View all materials</NavLink>
+        <NavLink to="/dashboard/view-materials-tutor">
+          View all materials
+        </NavLink>
       </li>
     </>
   );

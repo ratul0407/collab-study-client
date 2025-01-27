@@ -1,42 +1,38 @@
-import axios from "axios";
+import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 const img_hosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
 const img_hosting_api = `https://api.imgbb.com/1/upload?key=${img_hosting_key}`;
-function UploadMaterialModal({ id }) {
+function UpdateMaterialModal({ id, material, refetch }) {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const title = form.title.value;
     const link = form.link.value;
+    const title = form.title.value;
     const img = form.img.files[0];
-    console.log(img);
 
     const imgFile = { image: img };
     const res = await axios.post(img_hosting_api, imgFile, {
       headers: { "content-type": "multipart/form-data" },
     });
-    console.log(res);
 
     const material = {
       title,
       link,
       image: res?.data?.data?.display_url,
-      tutor: user?.email,
-      sessionId: id,
     };
+
     try {
-      await axiosSecure.post("/materials", material);
-      toast.success("Material saved");
-      navigate("/dashboard/view-materials-tutor");
+      await axiosSecure.patch(`/material/${id}`, material);
+      toast.success("material successfully updated!");
     } catch (err) {
-      toast.error("Something went wrong! please try again later!");
+      toast.error("something wrong! please try again later");
     } finally {
+      refetch();
       document.getElementById(id).close();
     }
   };
@@ -62,6 +58,7 @@ function UploadMaterialModal({ id }) {
                 className="input input-bordered w-full"
                 placeholder="Title"
                 required
+                defaultValue={material.title}
                 name="title"
               />
             </div>
@@ -74,7 +71,7 @@ function UploadMaterialModal({ id }) {
                 id="sessionId"
                 type="text"
                 className="input input-bordered w-full"
-                value={id}
+                value={material.sessionId}
                 readOnly
               />
             </div>
@@ -113,6 +110,7 @@ function UploadMaterialModal({ id }) {
                 type="url"
                 className="input input-bordered w-full"
                 placeholder="Google Drive link"
+                defaultValue={material.link}
                 name="link"
                 required
               />
@@ -127,4 +125,4 @@ function UploadMaterialModal({ id }) {
   );
 }
 
-export default UploadMaterialModal;
+export default UpdateMaterialModal;
