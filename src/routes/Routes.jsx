@@ -15,6 +15,7 @@ import SessionDetails from "../pages/SessionDetails";
 import BookedSession from "../pages/dashboard/student/BookedSession";
 import UploadMaterial from "../pages/dashboard/tutor/UploadMaterial";
 import SessionRating from "../pages/dashboard/student/SessionRating";
+import MaterialsTutor from "../pages/dashboard/tutor/MaterialsTutor";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <TutorRoute>
               <YourSessions />
+            </TutorRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/view-materials-tutor",
+        element: (
+          <PrivateRoute>
+            <TutorRoute>
+              <MaterialsTutor />
             </TutorRoute>
           </PrivateRoute>
         ),

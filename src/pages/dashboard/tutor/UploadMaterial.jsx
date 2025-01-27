@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import UploadMaterialModal from "../../../components/modal/UploadMaterialModal";
 
 function UploadMaterial() {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ function UploadMaterial() {
                 <h2 className="card-title">{session.title}</h2>
                 <p>{session.description.substring(0, 100)}....</p>
                 <div className="card-actions justify-end">
-                  <button className="form-btn">Upload Material</button>
+                  <UploadMaterialModal id={session._id} />
                 </div>
               </div>
             </div>
