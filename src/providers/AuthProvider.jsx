@@ -58,26 +58,26 @@ function AuthProvider({ children }) {
     });
   };
   useEffect(() => {
-    const unSubscribe = () => {
-      onAuthStateChanged(auth, async (currentUser) => {
-        if (currentUser?.email) {
-          axios
-            .post(`${import.meta.env.VITE_API_URL}/jwt`, {
-              email: currentUser.email,
-            })
-            .then((res) => {
-              if (res.data.token) {
-                setUser(currentUser);
-                localStorage.setItem("token", res.data.token);
-              }
-            });
-        } else {
-          setUser(null);
-          localStorage.removeItem("token");
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
+        try {
+          const res = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+            email: currentUser.email,
+          });
+          console.log("JWT token response:", res.data);
+          if (res.data.token) {
+            setUser(currentUser);
+            localStorage.setItem("token", res.data.token);
+          }
+        } catch (error) {
+          console.error("Error generating JWT token:", error);
         }
-        setLoading(false);
-      });
-    };
+      } else {
+        setUser(null);
+        localStorage.removeItem("token");
+      }
+      setLoading(false);
+    });
     return () => unSubscribe();
   }, []);
   console.log("current User --->", user);
