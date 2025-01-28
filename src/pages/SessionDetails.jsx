@@ -52,7 +52,6 @@ function SessionDetails() {
     tutor_email,
   } = session || {};
 
-  console.log(role);
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
   const handleBooking = async () => {
@@ -68,7 +67,6 @@ function SessionDetails() {
       }
     } catch (err) {
       if (err?.response.status === 409) {
-        console.log(err);
         toast.error(err?.response.data.message);
       } else {
         toast.error("Something went wrong! Please try again later!");
@@ -76,7 +74,6 @@ function SessionDetails() {
     }
   };
 
-  console.log(reviews);
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="card max-w-[600px] bg-base-100 shadow-xl">

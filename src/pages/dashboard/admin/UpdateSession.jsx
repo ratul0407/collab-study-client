@@ -13,7 +13,7 @@ function UpdateSession() {
   const { id } = useParams();
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate("");
-  console.log(id);
+
   const {
     data: session = [],
     isLoading,
@@ -26,7 +26,7 @@ function UpdateSession() {
     },
   });
   if (isLoading) return <LoadingSpinner />;
-  console.log(session);
+
   const {
     tutor_email,
     tutor_name,
@@ -41,10 +41,8 @@ function UpdateSession() {
     fee,
     status,
   } = session || {};
-  console.log(status);
+
   const onSubmit = async (data) => {
-    console.log(data);
-    // await axiosSecure.patch(`/update-session/${id}`, { data });
     try {
       if (data.img[0]) {
         //upload the img to imgbb
@@ -71,7 +69,6 @@ function UpdateSession() {
         }
       }
     } catch (err) {
-      console.log(err);
       toast.error("Something went wrong! Please try again");
     } finally {
       refetch();

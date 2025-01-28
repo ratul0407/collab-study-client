@@ -15,7 +15,6 @@ function MaterialsStudent() {
       return data;
     },
   });
-  console.log(materials);
 
   const downloadImg = async (imgSrc, imgName) => {
     const imgBlob = await fetch(imgSrc).then((res) => res.blob());

@@ -22,7 +22,7 @@ function AllUsers() {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 4;
   const numberOfPages = Math.ceil(count / itemsPerPage) || 0;
-  // console.log(numberOfPages);
+
   const pages = [...Array(numberOfPages).keys()];
 
   const {
@@ -38,7 +38,6 @@ function AllUsers() {
       return data;
     },
   });
-  console.log(users);
 
   const handleSubmit = (e) => {
     e.preventDefault();

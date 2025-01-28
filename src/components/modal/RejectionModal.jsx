@@ -18,7 +18,6 @@ function RejectionModal({ refetch, id }) {
       toast.success("Rejection successful!");
       document.getElementById(id).close();
     } catch (err) {
-      console.log(err);
       toast.error(err);
     } finally {
       refetch();

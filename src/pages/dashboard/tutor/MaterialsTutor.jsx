@@ -42,7 +42,7 @@ function MaterialsTutor() {
       refetch();
     });
   };
-  console.log(materials);
+
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>

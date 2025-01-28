@@ -14,20 +14,20 @@ function SocialLogin() {
       toast.success("Sign In SuccessFul");
       navigate("/");
     } catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   };
   const handleGithubSignIn = async () => {
     try {
       const data = await githubSignIn();
-      console.log(data);
+
       if (!data.email)
         toast.error(
           "You might not be able to use the application unless you sign in with google, or you email, as github doesn't proved necessary information for our application to run properly",
         );
       navigate("/");
     } catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   };
   return (

@@ -6,7 +6,6 @@ import RejectionModal from "../../modal/RejectionModal";
 import { Link } from "react-router-dom";
 
 function SessionRow({ session, refetch, status, handleDelete }) {
-  console.log(session);
   return (
     <tr key={session._id}>
       <td>

@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 function ApproveSessionModal({ id, refetch, title }) {
   const [selectedOption, setSelectedOption] = useState("");
   const axiosSecure = useAxiosSecure();
-  console.log(id);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;

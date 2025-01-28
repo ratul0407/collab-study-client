@@ -31,7 +31,7 @@ function YourSessions() {
       refetch();
     }
   };
-  console.log(sessions);
+
   return (
     <div>
       <h3 className="dashboard-title">Your sessions</h3>

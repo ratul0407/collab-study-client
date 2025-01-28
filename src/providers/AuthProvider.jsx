@@ -64,7 +64,7 @@ function AuthProvider({ children }) {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
             email: currentUser.email,
           });
-          console.log("JWT token response:", res.data);
+
           if (res.data.token) {
             setUser(currentUser);
             localStorage.setItem("token", res.data.token);

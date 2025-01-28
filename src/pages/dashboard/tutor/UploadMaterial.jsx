@@ -17,7 +17,6 @@ function UploadMaterial() {
       return data;
     },
   });
-  console.log(sessions);
 
   return (
     <div>
@@ -25,18 +24,24 @@ function UploadMaterial() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {sessions?.map((session) => {
           return (
-            <div key={session._id} className="card w-96 bg-base-100 shadow-xl">
-              <figure>
-                <img src={session.img} alt="Shoes" />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{session.title}</h2>
-                <p>{session.description.substring(0, 100)}....</p>
-                <div className="card-actions justify-end">
-                  <UploadMaterialModal id={session._id} />
+            session.status !== "Pending" &&
+            session.status !== "Rejected" && (
+              <div
+                key={session._id}
+                className="card w-96 bg-base-100 shadow-xl"
+              >
+                <figure>
+                  <img src={session.img} alt="Shoes" />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">{session.title}</h2>
+                  <p>{session.description.substring(0, 100)}....</p>
+                  <div className="card-actions justify-end">
+                    <UploadMaterialModal id={session._id} />
+                  </div>
                 </div>
               </div>
-            </div>
+            )
           );
         })}
       </div>

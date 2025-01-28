@@ -13,7 +13,7 @@ function CheckoutForm({ price, tutorEmail, id }) {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate("");
-  console.log(price);
+
   useEffect(() => {
     axiosSecure
       .post("/create-payment-intent", {
@@ -22,7 +22,6 @@ function CheckoutForm({ price, tutorEmail, id }) {
         student: user?.email,
       })
       .then((res) => {
-        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
   }, [price]);

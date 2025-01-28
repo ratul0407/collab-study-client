@@ -18,13 +18,11 @@ function UploadMaterialModal({ id }) {
     const title = form.title.value;
     const link = form.link.value;
     const img = form.img.files[0];
-    console.log(img);
 
     const imgFile = { image: img };
     const res = await axios.post(img_hosting_api, imgFile, {
       headers: { "content-type": "multipart/form-data" },
     });
-    console.log(res);
 
     const material = {
       title,

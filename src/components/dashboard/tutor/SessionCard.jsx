@@ -1,5 +1,4 @@
 import { isBefore, parse } from "date-fns";
-import useRole from "../../../hooks/useRole";
 import { useParams } from "react-router-dom";
 import ShowRejectionReasonModal from "../../modal/ShowRejectionReasonModal";
 
@@ -19,10 +18,9 @@ function SessionCard({ session, handleRequest }) {
     mins,
   } = session || {};
   const { params } = useParams();
-  console.log(params);
-  const { role } = useRole();
-  const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
-  const closed = isBefore(regEndDate, new Date());
+
+  const closed = isBefore(reg_end, new Date());
+
   return (
     <div className="card mx-auto w-72 border bg-base-100 shadow-xl sm:w-96 2xl:w-11/12">
       <figure>

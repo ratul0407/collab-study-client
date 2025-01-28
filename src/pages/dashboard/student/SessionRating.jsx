@@ -24,8 +24,6 @@ function SessionRating() {
     e.preventDefault();
     const form = e.target;
     const review = form.review.value;
-    const rating = parseInt(form.rating.value);
-    console.log({ review, rating });
 
     try {
       await axiosSecure.post(`/reviews`, {
@@ -37,7 +35,6 @@ function SessionRating() {
       toast.success("Thanks for your feedback and review");
       navigate("/dashboard/booked-session");
     } catch (err) {
-      console.log(err);
       toast.error("something went wrong please try again later!");
     }
   };

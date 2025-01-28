@@ -21,7 +21,7 @@ function MaterialsAdmin() {
     },
   });
   if (isLoading) return <LoadingSpinner />;
-  console.log(materials);
+
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",

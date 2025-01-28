@@ -16,12 +16,13 @@ function Root() {
   const [tutorsCount, setTutorsCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const axiosSecure = useAxiosSecure();
+  const [loadMore, setLoadMore] = useState(false);
   useEffect(() => {
     const getTeachersCount = async () => {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_URL}/tutors-count`,
       );
-      console.log(data);
+
       return setTutorsCount(data.count);
     };
     getTeachersCount();
@@ -30,10 +31,9 @@ function Root() {
   const numberOfPages = Math.ceil(tutorsCount / itemsPerPage) || 0;
 
   const pages = [...Array(numberOfPages).keys()];
-  console.log(pages);
-  console.log(tutorsCount);
+
   const { data: sessions = [], isLoading } = useQuery({
-    queryKey: ["home-sessions"],
+    queryKey: ["home-sessions", loadMore],
     queryFn: async () => {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_URL}/sessions-home`,
@@ -52,7 +52,7 @@ function Root() {
       return data;
     },
   });
-  console.log(tutors);
+
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="font-montserrat font-normal">
@@ -65,7 +65,7 @@ function Root() {
       {/* session cards */}
       <section className="space-y-4 py-20">
         <h3 className="text-center text-3xl font-bold">Popular Sessions🔥</h3>
-        <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 items-center justify-center gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {sessions?.map((session) => {
             return <HomePageSessionCard session={session} key={session._id} />;
           })}

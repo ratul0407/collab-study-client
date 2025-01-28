@@ -1,8 +1,24 @@
-# React + Vite
+# STUDY HOUSE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Admin:
 
-Currently, two official plugins are available:
+admin email: ratul@gmail.com
+admin password: 123456
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live site url
+
+[Study House](https://bistro-boss-86657.web.app/)
+
+## Features
+
+- login
+- logout
+- firebase authentication
+- jwt token verification
+- role assignment to users
+- users can download images
+- users can upload session
+- stripe implementation
+- responsive across mobile, tablet and desktop
+- private route for admin, tutor
+- role verification

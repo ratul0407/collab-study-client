@@ -12,7 +12,6 @@ function SignUp() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       //user registration
       await createUser(data.email, data.pass);
@@ -23,7 +22,6 @@ function SignUp() {
       navigate("/");
       toast.success(`Account created successfully!`);
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
     }
   };
