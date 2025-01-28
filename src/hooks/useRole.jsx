@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import useAxiosSecure from "./useAxiosSecure";
+
+import axios from "axios";
 
 function useRole() {
   const axiosSecure = useAxiosSecure();
@@ -8,7 +9,9 @@ function useRole() {
   const { data: role, isLoading } = useQuery({
     queryKey: ["role", user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/users/role/${user?.email}`);
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/users/role/${user?.email}`,
+      );
       return data?.role;
     },
   });
