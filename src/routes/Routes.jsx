@@ -24,12 +24,9 @@ import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
-    path: "*",
-    element: <ErrorPage />,
-  },
-  {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/session/:id",

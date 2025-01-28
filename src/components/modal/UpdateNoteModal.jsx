@@ -80,7 +80,7 @@ function UpdateNoteModal({ id, title, description, refetch }) {
               />
             </div>
             <button type="submit" className="form-btn">
-              Create Note
+              Save
             </button>
           </form>
         </div>

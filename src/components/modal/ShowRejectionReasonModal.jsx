@@ -5,7 +5,7 @@ function ShowRejectionReasonModal({ session }) {
         className="btn"
         onClick={() => document.getElementById(session._id).showModal()}
       >
-        open modal
+        Rejection Reason
       </button>
       <dialog id={session._id} className="modal">
         <div className="modal-box">
