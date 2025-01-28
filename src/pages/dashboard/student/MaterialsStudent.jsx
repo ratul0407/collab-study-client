@@ -29,29 +29,31 @@ function MaterialsStudent() {
   return (
     <div>
       <h3 className="dashboard-title">All Materials</h3>
-      {materials?.map((material) => {
-        return (
-          <div key={material._id} className="card w-96 bg-base-100 shadow-xl">
-            <figure>
-              <img src={material.image} alt="Shoes" />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">{material.title}</h2>
-              <Link to={material.link} target="_blank" className="underline">
-                Google Drive Link
-              </Link>
-              <div className="card-actions justify-end">
-                <button
-                  className="btn"
-                  onClick={() => downloadImg(material.image, material.title)}
-                >
-                  Download Image
-                </button>
+      <div className="grid grid-cols-1 items-center gap-4 lg:grid-cols-2">
+        {materials?.map((material) => {
+          return (
+            <div key={material._id} className="card w-96 bg-base-100 shadow-xl">
+              <figure>
+                <img src={material.image} alt="Shoes" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{material.title}</h2>
+                <Link to={material.link} target="_blank" className="underline">
+                  Google Drive Link
+                </Link>
+                <div className="card-actions justify-end">
+                  <button
+                    className="btn"
+                    onClick={() => downloadImg(material.image, material.title)}
+                  >
+                    Download Image
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
