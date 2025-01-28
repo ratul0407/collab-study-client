@@ -2,7 +2,6 @@ import { IoBookSharp, IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import avatarImg from "../../assets/placeholder.jpg";
 import useAuth from "../../hooks/useAuth";
-import { FaUser } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import useRole from "../../hooks/useRole";
 function Navbar() {

@@ -1,6 +1,6 @@
 import { isBefore, parse } from "date-fns";
 import useRole from "../../../hooks/useRole";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ShowRejectionReasonModal from "../../modal/ShowRejectionReasonModal";
 
 function SessionCard({ session, handleRequest }) {
