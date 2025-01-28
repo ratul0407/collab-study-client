@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-
+import toast from "react-hot-toast";
 function MaterialsStudent() {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -17,23 +17,21 @@ function MaterialsStudent() {
   });
   console.log(materials);
 
-  const imageUrl =
-    "https://i.ibb.co.com/D4Pq8m2/Getting-Started-with-Array-Data-Structure.webp"; // Replace with your image URL
-  const fileName = "downloaded-image.jpg";
-  const downloadImage = () => {
-    const link = document.createElement("a"); // Create a link element
-    link.href = imageUrl; // Set the href to the image URL
-    link.download = fileName; // Set the download attribute with the file name
-    document.body.appendChild(link); // Append the link to the document
-    link.click(); // Trigger the download
-    document.body.removeChild(link); // Remove the link after download
+  const downloadImg = async (imgSrc, imgName) => {
+    const imgBlob = await fetch(imgSrc).then((res) => res.blob());
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(imgBlob);
+    link.download = imgName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
   return (
     <div>
       <h3 className="dashboard-title">All Materials</h3>
       {materials?.map((material) => {
         return (
-          <div className="card w-96 bg-base-100 shadow-xl">
+          <div key={material._id} className="card w-96 bg-base-100 shadow-xl">
             <figure>
               <img src={material.image} alt="Shoes" />
             </figure>
@@ -43,7 +41,12 @@ function MaterialsStudent() {
                 Google Drive Link
               </Link>
               <div className="card-actions justify-end">
-                <button onClick={downloadImage}>Download Image</button>
+                <button
+                  className="btn"
+                  onClick={() => downloadImg(material.image, material.title)}
+                >
+                  Download Image
+                </button>
               </div>
             </div>
           </div>

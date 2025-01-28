@@ -9,7 +9,7 @@ function useRole() {
     queryKey: ["role", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure(`/users/role/${user?.email}`);
-      return data.role;
+      return data?.role;
     },
   });
   return { role, isLoading };

@@ -50,20 +50,28 @@ function ManageNotes() {
     <div>
       <h3 className="dashboard-title">Manage notes</h3>
       {/* show the notes in card format */}
-      <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {notes.map((note) => {
-          return (
-            <NoteCard
-              refetch={refetch}
-              title={note.title}
-              description={note.description}
-              key={note._id}
-              id={note._id}
-              handleDelete={handleDelete}
-            />
-          );
-        })}
-      </div>
+      {notes.length > 0 ? (
+        <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {notes.map((note) => {
+            return (
+              <NoteCard
+                refetch={refetch}
+                title={note.title}
+                description={note.description}
+                key={note._id}
+                id={note._id}
+                handleDelete={handleDelete}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <h3 className="text-2xl lg:text-5xl">
+            You haven't added any notes yet :(
+          </h3>
+        </div>
+      )}
     </div>
   );
 }

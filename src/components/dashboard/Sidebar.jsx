@@ -5,10 +5,12 @@ import useRole from "../../hooks/useRole";
 import AdminMenu from "./menu/AdminMenu";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 function Sidebar() {
   const { logOut } = useAuth();
-  const { role } = useRole();
+  const { role, isLoading } = useRole();
+  if (isLoading) return <LoadingSpinner />;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

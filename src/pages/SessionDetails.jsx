@@ -7,6 +7,8 @@ import LoadingSpinner from "../components/shared/LoadingSpinner";
 import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
 import PaymentModal from "../components/modal/PaymentModal";
+import ReviewsModal from "../components/modal/ReviewsModal";
+import axios from "axios";
 
 function SessionDetails() {
   const { user } = useAuth();
@@ -17,11 +19,21 @@ function SessionDetails() {
   const { data: session = [], isLoading } = useQuery({
     queryKey: ["session", id],
     queryFn: async () => {
-      const { data } = await axiosSecure(`/session/${id}`);
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/session/${id}`,
+      );
       return data;
     },
   });
-
+  const { data: reviews = [], isLoading: reviewsLoading } = useQuery({
+    queryKey: ["reviews"],
+    queryFn: async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/reviews?session=${_id}`,
+      );
+      return data;
+    },
+  });
   if (isLoading) return <LoadingSpinner />;
   const {
     title,
@@ -39,10 +51,11 @@ function SessionDetails() {
     tutor_name,
     tutor_email,
   } = session || {};
+
+  console.log(role);
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
   const handleBooking = async () => {
-    console.log("i was clicked");
     try {
       const response = await axiosSecure.post("/booked-session", {
         student: user?.email,
@@ -62,6 +75,8 @@ function SessionDetails() {
       }
     }
   };
+
+  console.log(reviews);
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="card max-w-[600px] bg-base-100 shadow-xl">
@@ -75,7 +90,12 @@ function SessionDetails() {
           <p className="font-bold">Registration Ends: {reg_end}</p>
           <p className="font-bold">Class Starts: {class_start}</p>
           <p className="font-bold">Class Ends: {class_end}</p>
-          <p className="font-bold">Rating: {rating}</p>
+          {rating > 0 ? (
+            <ReviewsModal reviews={reviews} rating={rating} />
+          ) : (
+            <p className="font-bold">reviews: {rating}</p>
+          )}
+
           <p className="font-bold">
             Session Duration: {hours}hrs and {mins}mins
           </p>
@@ -85,7 +105,7 @@ function SessionDetails() {
           </p>
 
           <div className="card-actions justify-end">
-            {fee > 0 ? (
+            {fee > 0 && role === "student" ? (
               <PaymentModal tutorEmail={tutor_email} id={_id} fee={fee} />
             ) : (
               <button

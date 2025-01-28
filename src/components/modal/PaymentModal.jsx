@@ -9,11 +9,11 @@ function PaymentModal({ fee, tutorEmail, id }) {
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
         className="form-btn"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        onClick={() => document.getElementById(id).showModal()}
       >
         Book Now
       </button>
-      <dialog id="my_modal_3" className="modal">
+      <dialog id={id} className="modal">
         <div className="modal-box">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
