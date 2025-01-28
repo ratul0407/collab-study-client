@@ -19,8 +19,14 @@ import MaterialsTutor from "../pages/dashboard/tutor/MaterialsTutor";
 import AdminRoute from "./AdminRoute";
 import UpdateSession from "../pages/dashboard/admin/UpdateSession";
 import MaterialsAdmin from "../pages/dashboard/admin/MaterialsAdmin";
+import MaterialsStudent from "../pages/dashboard/student/MaterialsStudent";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
   {
     path: "/",
     element: <Root />,
@@ -84,6 +90,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookedSession />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/materials-student",
+        element: (
+          <PrivateRoute>
+            <MaterialsStudent />
           </PrivateRoute>
         ),
       },

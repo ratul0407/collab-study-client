@@ -13,7 +13,7 @@ function StudentMenu() {
         <NavLink to="/dashboard/manage-notes">Manage notes</NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard/view-all-materials">View all materials</NavLink>
+        <NavLink to="/dashboard/materials-student">View all materials</NavLink>
       </li>
     </>
   );
