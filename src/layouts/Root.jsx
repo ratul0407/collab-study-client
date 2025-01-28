@@ -9,8 +9,29 @@ import axios from "axios";
 
 import AllTutors from "../components/Home/AllTutors";
 import HomePageSessionCard from "../components/Home/HomePageSessionCard";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 function Root() {
+  const [tutorsCount, setTutorsCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    const getTeachersCount = async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_URL}/tutors-count`,
+      );
+      console.log(data);
+      return setTutorsCount(data.count);
+    };
+    getTeachersCount();
+  }, []);
+  const itemsPerPage = 4;
+  const numberOfPages = Math.ceil(tutorsCount / itemsPerPage) || 0;
+
+  const pages = [...Array(numberOfPages).keys()];
+  console.log(pages);
+  console.log(tutorsCount);
   const { data: sessions = [], isLoading } = useQuery({
     queryKey: ["home-sessions"],
     queryFn: async () => {
@@ -22,6 +43,16 @@ function Root() {
     },
   });
 
+  const { data: tutors = [] } = useQuery({
+    queryKey: ["tutors", tutorsCount, itemsPerPage, currentPage],
+    queryFn: async () => {
+      const { data } = await axiosSecure(
+        `/tutors?page=${currentPage}&limit=${itemsPerPage}`,
+      );
+      return data;
+    },
+  });
+  console.log(tutors);
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="font-montserrat font-normal">
@@ -40,7 +71,7 @@ function Root() {
           })}
         </div>
       </section>
-      <section>
+      <section className="py-10">
         <h3 className="text-center text-3xl font-bold">Tutors</h3>
         <div className="overflow-x-auto">
           <table className="table">
@@ -55,9 +86,59 @@ function Root() {
               </tr>
             </thead>
             <tbody>
-              <AllTutors />
+              {tutors?.map((tutor, index) => {
+                return (
+                  <tr key={tutor._id}>
+                    <td>{++index}</td>
+                    <td className="max-w-fit">
+                      <img
+                        className="h-14 w-14 rounded-full object-cover"
+                        src={tutor.photo}
+                      />
+                    </td>
+                    <td>{tutor.name}</td>
+                    <td>{tutor.email}</td>
+                    <td>{tutor.role}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
+        </div>
+        <div className="space-x-3 pt-10 text-center">
+          <button
+            onClick={() => {
+              if (currentPage > 0) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+            className="btn rounded-full"
+          >
+            Prev
+          </button>
+          {pages.map((page) => {
+            return (
+              <button
+                onClick={() => {
+                  setCurrentPage(page);
+                }}
+                className={`btn rounded-full ${currentPage === page && "bg-blue-500 text-white hover:bg-blue-400"}`}
+                key={page}
+              >
+                {page}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => {
+              if (currentPage < pages.length - 1) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+            className="btn rounded-full"
+          >
+            Next
+          </button>
         </div>
       </section>
       <Footer />

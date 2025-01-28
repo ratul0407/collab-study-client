@@ -1,16 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-
-function AllTutors() {
-  const axiosSecure = useAxiosSecure();
-  const { data: tutors = [], isLoading } = useQuery({
-    queryKey: ["tutors"],
-    queryFn: async () => {
-      const { data } = await axiosSecure("/tutors");
-      return data;
-    },
-  });
+function AllTutors({ tutors }) {
   return tutors?.map((tutor, index) => {
     return (
       <tr key={tutor._id}>
