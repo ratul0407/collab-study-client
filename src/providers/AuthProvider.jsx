@@ -60,8 +60,6 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unSubscribe = () => {
       onAuthStateChanged(auth, async (currentUser) => {
-        setUser(currentUser);
-
         if (currentUser?.email) {
           axios
             .post(`${import.meta.env.VITE_API_URL}/jwt`, {
@@ -69,10 +67,12 @@ function AuthProvider({ children }) {
             })
             .then((res) => {
               if (res.data.token) {
+                setUser(currentUser);
                 localStorage.setItem("token", res.data.token);
               }
             });
         } else {
+          setUser(null);
           localStorage.removeItem("token");
         }
         setLoading(false);

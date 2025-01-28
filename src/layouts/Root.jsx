@@ -17,11 +17,11 @@ function Root() {
       const { data } = await axios.get(
         `${import.meta.env.VITE_API_URL}/sessions-home`,
       );
-      console.log(data);
+
       return data;
     },
   });
-  console.log(sessions);
+
   if (isLoading) return <LoadingSpinner />;
   return (
     <div className="font-montserrat font-normal">
