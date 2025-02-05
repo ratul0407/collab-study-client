@@ -26,7 +26,8 @@ Study House is an online educational platform that enables teachers to upload, m
 
 **Clone the Repo**
 ```
-git clone https://github.com/ratul047/study-collab-client.git
+git clone https://github.com/ratul0407/collab-study-client.git
+
 ```
 
 **go to the folder**
