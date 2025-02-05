@@ -3,8 +3,12 @@
 Study House is an online educational platform that enables teachers to upload, manage, and share learning materials with students. Students can book sessions—both free and paid—to access exclusive materials. The platform integrates secure payment processing through Stripe and handles user authentication via Firebase.
 
 ## Project Preview
+
 ![Study House](https://github.com/user-attachments/assets/776a1423-50ff-41f7-ade0-983be71bbb49)
+
+
 ## Features
+
 - Teacher Dashboard: Add, update, and delete sessions and materials.
 - Student Access: Book sessions to access learning materials.
 - Session Management: Sessions can be categorized as free or paid.
@@ -14,6 +18,7 @@ Study House is an online educational platform that enables teachers to upload, m
 - Authentication: Secure login and registration powered by Firebase.
 
 ## Tech Stack
+
 - **Frontend:** React, Vite, Tailwind CSS, DaisyUI
 - **Backend:** NodeJS, Mongodb, JWT, Stripe
 - **State Management:** React Query, React Hook Form
@@ -21,6 +26,25 @@ Study House is an online educational platform that enables teachers to upload, m
 - **Payments:** Stripe (`@stripe/react-stripe-js`, `@stripe/stripe-js`)
 - **Utilities:** Axios, Date-fns, SweetAlert2, React Icons
 - **Tooling:** ESLint, Prettier, PostCSS
+
+
+## Dependencies used
+
+- React JS
+- Axios
+- date-fns
+- Firebase
+- Tanstack-query
+- react-hook-form
+- react-hot-toast
+- react-icons
+- sweetalert2
+- react stripe-js
+- daisyui
+- tailwindcss
+- autoprefixer
+- postcss
+
 
 ## Installation
 
@@ -53,22 +77,6 @@ VITE_IMG_HOSTING_KEY=_Imgbb_img_hosting_key
 npm install
 npm run dev
 ```
-
-## Dependencies used
-- React JS
-- Axios
-- date-fns
-- Firebase
-- Tanstack-query
-- react-hook-form
-- react-hot-toast
-- react-icons
-- sweetalert2
-- react stripe-js
-- daisyui
-- tailwindcss
-- autoprefixer
-- postcss
 
 
 
