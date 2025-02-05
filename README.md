@@ -3,7 +3,7 @@
 Study House is an online educational platform that enables teachers to upload, manage, and share learning materials with students. Students can book sessions—both free and paid—to access exclusive materials. The platform integrates secure payment processing through Stripe and handles user authentication via Firebase.
 
 ## Project Preview
-![Screenshot (44)](https://github.com/user-attachments/assets/776a1423-50ff-41f7-ade0-983be71bbb49)
+![Study House](https://github.com/user-attachments/assets/776a1423-50ff-41f7-ade0-983be71bbb49)
 ## Features
 - Teacher Dashboard: Add, update, and delete sessions and materials.
 - Student Access: Book sessions to access learning materials.
