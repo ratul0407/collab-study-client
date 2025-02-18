@@ -4,7 +4,20 @@ import avatarImg from "../../assets/placeholder.jpg";
 import useAuth from "../../hooks/useAuth";
 import { AiOutlineMenu } from "react-icons/ai";
 import useRole from "../../hooks/useRole";
+import { GoMoon, GoSun } from "react-icons/go";
+import { BiBlock } from "react-icons/bi";
+import { useEffect, useState } from "react";
 function Navbar() {
+  const isSystemDark = window.matchMedia(
+    "(prefers-color-scheme: dark)",
+  ).matches;
+  const usePreferredTheme = isSystemDark ? "dark" : "light";
+  const [theme, setTheme] = useState(usePreferredTheme);
+  console.log(theme);
+
+  useEffect(() => {
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
   const { user, logOut } = useAuth();
   const { role } = useRole();
   return (
@@ -68,6 +81,34 @@ function Navbar() {
                 </li>
               </>
             )}
+            <li>
+              <div className="flex items-center gap-4">
+                <span>Theme</span>
+                <div className="flex w-full justify-around gap-1 rounded-full border p-2">
+                  <button
+                    data-tip="light"
+                    className="tooltip"
+                    onClick={() => setTheme("light")}
+                  >
+                    <GoSun className="h-4 w-4" />
+                  </button>
+                  <button
+                    className="tooltip"
+                    data-tip="dark"
+                    onClick={() => setTheme("dark")}
+                  >
+                    <GoMoon className="h-4 w-4" />
+                  </button>
+                  <button
+                    className="tooltip"
+                    data-tip="system default"
+                    onClick={() => setTheme(usePreferredTheme)}
+                  >
+                    <BiBlock className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
