@@ -19,7 +19,7 @@ function HomePageSessionCard({ session }) {
   const regEndDate = parse(reg_end, "yyyy-dd-MM", new Date());
   const closed = isBefore(regEndDate, new Date());
   return (
-    <div className="card mx-auto w-72 border bg-base-100 shadow-xl sm:w-96 2xl:w-11/12">
+    <div className="mx-auto w-72 border bg-base-100 shadow-xl sm:w-96 2xl:w-11/12">
       <figure>
         <img className="h-64 w-full object-cover" src={img} alt="Shoes" />
       </figure>

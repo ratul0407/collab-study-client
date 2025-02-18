@@ -11,7 +11,7 @@ function Navbar() {
   const isSystemDark = window.matchMedia(
     "(prefers-color-scheme: dark)",
   ).matches;
-  const usePreferredTheme = isSystemDark ? "dark" : "light";
+  const usePreferredTheme = isSystemDark ? "black" : "light";
   const [theme, setTheme] = useState(usePreferredTheme);
   console.log(theme);
 
@@ -21,7 +21,7 @@ function Navbar() {
   const { user, logOut } = useAuth();
   const { role } = useRole();
   return (
-    <div className="navbar">
+    <div className="navbar bg-white shadow-xl md:py-3 lg:py-4 xl:py-6">
       <div className="navbar-start space-x-4">
         <Link to="/">
           {/* <img className="w-20" src={logo} alt="Company Logo" />
@@ -40,7 +40,7 @@ function Navbar() {
             className="flex cursor-pointer flex-row items-center gap-3 rounded-full border-[1px] border-neutral-200 p-4 transition hover:shadow-md md:px-2 md:py-1"
           >
             <div className="flex w-full items-center justify-between gap-2">
-              <AiOutlineMenu />
+              <AiOutlineMenu className="" />
               <div className="hidden md:block">
                 {/* Avatar */}
                 <img
@@ -56,7 +56,7 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            className="dark:bg-card_bg menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
             {user ? (
               <>
@@ -95,7 +95,7 @@ function Navbar() {
                   <button
                     className="tooltip"
                     data-tip="dark"
-                    onClick={() => setTheme("dark")}
+                    onClick={() => setTheme("black")}
                   >
                     <GoMoon className="h-4 w-4" />
                   </button>

@@ -12,7 +12,7 @@ function Sidebar() {
   const { role, isLoading } = useRole();
   if (isLoading) return <LoadingSpinner />;
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="bg:sidebar_bg drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Page content here */}
@@ -20,7 +20,7 @@ function Sidebar() {
           <MdMenu />
         </label>
       </div>
-      <div className="drawer-side">
+      <div className="bg:sidebar_bg drawer-side">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
@@ -37,7 +37,7 @@ function Sidebar() {
 
           {/* for admin */}
           {role === "admin" && <AdminMenu />}
-          <div className="divider"></div>
+          <div className="border-border_clr divider border-b"></div>
           <li>
             <Link to="/">Home</Link>
           </li>

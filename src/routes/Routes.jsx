@@ -21,21 +21,25 @@ import UpdateSession from "../pages/dashboard/admin/UpdateSession";
 import MaterialsAdmin from "../pages/dashboard/admin/MaterialsAdmin";
 import MaterialsStudent from "../pages/dashboard/student/MaterialsStudent";
 import ErrorPage from "../pages/ErrorPage";
+import Home from "../pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/session/:id",
+        element: <SessionDetails />,
+      },
+    ],
   },
-  {
-    path: "/session/:id",
-    element: (
-      <PrivateRoute>
-        <SessionDetails />
-      </PrivateRoute>
-    ),
-  },
+
   {
     path: "/dashboard",
     element: (
