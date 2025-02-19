@@ -6,22 +6,15 @@ import { AiOutlineMenu } from "react-icons/ai";
 import useRole from "../../hooks/useRole";
 import { GoMoon, GoSun } from "react-icons/go";
 import { BiBlock } from "react-icons/bi";
-import { useEffect, useState } from "react";
-function Navbar() {
-  const isSystemDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
-  const usePreferredTheme = isSystemDark ? "black" : "light";
-  const [theme, setTheme] = useState(usePreferredTheme);
-  console.log(theme);
+import useTheme from "../../hooks/useTheme";
 
-  useEffect(() => {
-    document.querySelector("html").setAttribute("data-theme", theme);
-  }, [theme]);
+function Navbar() {
   const { user, logOut } = useAuth();
+  const { theme, setTheme } = useTheme();
+
   const { role } = useRole();
   return (
-    <div className="navbar bg-white shadow-xl md:py-3 lg:py-4 xl:py-6">
+    <div className={`navbar`}>
       <div className="navbar-start space-x-4">
         <Link to="/">
           {/* <img className="w-20" src={logo} alt="Company Logo" />

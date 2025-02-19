@@ -47,6 +47,7 @@ function Home() {
     },
   });
 
+  console.log(sessions, tutors);
   if (isLoading) return <LoadingSpinner />;
   return (
     <div>
