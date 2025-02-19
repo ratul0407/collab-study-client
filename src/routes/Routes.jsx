@@ -23,6 +23,7 @@ import MaterialsStudent from "../pages/dashboard/student/MaterialsStudent";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
 import UserProfile from "../pages/dashboard/UserProfile";
+import AllSessionsPage from "../pages/AllSessionsPage";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/session/:id",
         element: <SessionDetails />,
+      },
+      {
+        path: "/all-sessions",
+        element: <AllSessionsPage />,
       },
     ],
   },

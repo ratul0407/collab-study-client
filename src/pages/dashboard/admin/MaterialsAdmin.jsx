@@ -46,6 +46,9 @@ function MaterialsAdmin() {
   return (
     <div>
       <h3 className="dashboard-title">All materials</h3>
+      {materials.length === 0 && (
+        <p className="text-center text-lg">No materials available</p>
+      )}
       <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
         {materials?.map((material) => {
           return (

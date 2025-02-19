@@ -18,12 +18,19 @@ function BookedSession() {
   return (
     <div>
       <h3 className="dashboard-title">Booked Session</h3>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
         {sessions?.map((session) => {
           return (
-            <div key={session._id} className="card w-96 bg-base-100 shadow-xl">
+            <div
+              key={session._id}
+              className="card w-96 border bg-base-100 shadow-xl"
+            >
               <figure>
-                <img src={session.img} alt="Shoes" />
+                <img
+                  src={session.img}
+                  className="max-h-[200px] w-full object-cover"
+                  alt="Shoes"
+                />
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{session.title}</h2>

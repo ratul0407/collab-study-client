@@ -25,6 +25,11 @@ function Navbar() {
           </div>
         </Link>
       </div>
+      <div className="navbar-center space-x-4">
+        <Link to="/">Home</Link>
+
+        <Link to="/all-sessions">All Sessions</Link>
+      </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end rounded-full border">
           <div
@@ -77,7 +82,7 @@ function Navbar() {
             <li>
               <div className="flex items-center gap-4">
                 <span>Theme</span>
-                <div className="flex w-full justify-around gap-1 rounded-full border p-2">
+                <div className="flex w-full justify-around gap-1 rounded-full border p-2 shadow-inner">
                   <button
                     data-tip="light"
                     className="tooltip"

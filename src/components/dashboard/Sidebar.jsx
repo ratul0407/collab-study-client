@@ -12,7 +12,7 @@ function Sidebar() {
   const { role, isLoading } = useRole();
   if (isLoading) return <LoadingSpinner />;
   return (
-    <div className="bg:sidebar_bg drawer lg:drawer-open">
+    <div className="bg:sidebar_bg drawer sticky top-0 lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Page content here */}
