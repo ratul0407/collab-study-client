@@ -42,6 +42,9 @@ function Sidebar() {
             <Link to="/">Home</Link>
           </li>
           <li>
+            <Link to="/dashboard/user-profile">Profile</Link>
+          </li>
+          <li>
             <button onClick={logOut}>Log out</button>
           </li>
         </ul>

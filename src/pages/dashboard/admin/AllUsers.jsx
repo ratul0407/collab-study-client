@@ -44,6 +44,7 @@ function AllUsers() {
     setSearch(searchText);
   };
   if (isLoading) return <LoadingSpinner />;
+  console.log(users);
   return (
     <div className="space-y-4">
       <h3 className="dashboard-title">All Users</h3>
@@ -67,7 +68,6 @@ function AllUsers() {
           {/* head */}
           <thead>
             <tr>
-              <th></th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -76,10 +76,9 @@ function AllUsers() {
           </thead>
           <tbody>
             {/* row 1 */}
-            {users?.map((item, index) => {
+            {users?.map((item) => {
               return (
                 <tr key={item._id}>
-                  <td>{++index}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.role}</td>

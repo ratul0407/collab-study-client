@@ -22,6 +22,7 @@ import MaterialsAdmin from "../pages/dashboard/admin/MaterialsAdmin";
 import MaterialsStudent from "../pages/dashboard/student/MaterialsStudent";
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
+import UserProfile from "../pages/dashboard/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -156,6 +157,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/dashboard/user-profile",
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -168,6 +177,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+
   {
     path: "/sign-up",
     element: <SignUp />,

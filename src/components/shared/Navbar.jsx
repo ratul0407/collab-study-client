@@ -14,7 +14,7 @@ function Navbar() {
 
   const { role } = useRole();
   return (
-    <div className="max-w-screen navbar mx-auto w-11/12 w-full px-4">
+    <div className="max-w-screen navbar mx-auto w-11/12 px-4">
       <div className="navbar-start space-x-4 bg-base-100">
         <Link to="/">
           {/* <img className="w-20" src={logo} alt="Company Logo" />
