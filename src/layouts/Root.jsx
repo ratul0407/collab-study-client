@@ -4,7 +4,7 @@ import Footer from "../components/Home/Footer";
 import { Outlet } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 function Root() {
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   console.log(theme);
   return (
     <div className="bg-base-100 font-montserrat font-normal">
