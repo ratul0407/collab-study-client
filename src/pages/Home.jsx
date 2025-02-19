@@ -5,6 +5,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import WhyStudyHouse from "../components/Home/WhyStudyHouse";
 
 function Home() {
   const [tutorsCount, setTutorsCount] = useState(0);
@@ -55,7 +56,7 @@ function Home() {
         <Banner />
       </div>
       {/* session cards */}
-      <section className="space-y-4 py-20">
+      <section className="space-y-4 py-20 2xl:container 2xl:mx-auto">
         <h3 className="text-center text-3xl font-bold">Popular Sessions🔥</h3>
         <div className="grid grid-cols-1 items-center justify-center gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {sessions?.map((session) => {
@@ -63,7 +64,11 @@ function Home() {
           })}
         </div>
       </section>
-      <section className="py-10">
+      <section className="py-10 2xl:container 2xl:mx-auto">
+        <WhyStudyHouse />
+      </section>
+
+      <section className="py-10 2xl:container 2xl:mx-auto">
         <h3 className="text-center text-3xl font-bold">Tutors</h3>
         <div className="overflow-x-auto">
           <table className="table">
