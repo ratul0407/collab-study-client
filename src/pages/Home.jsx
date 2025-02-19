@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import WhyStudyHouse from "../components/Home/WhyStudyHouse";
+import StudyHouseEmpowersYou from "../components/Home/StudyHouseEmpowersYou";
 
 function Home() {
   const [tutorsCount, setTutorsCount] = useState(0);
@@ -67,9 +68,11 @@ function Home() {
       <section className="py-10 2xl:container 2xl:mx-auto">
         <WhyStudyHouse />
       </section>
-
       <section className="py-10 2xl:container 2xl:mx-auto">
-        <h3 className="text-center text-3xl font-bold">Tutors</h3>
+        <StudyHouseEmpowersYou />
+      </section>
+      <section className="py-10 2xl:container 2xl:mx-auto">
+        <h3 className="text-center text-3xl font-bold">Our Tutors</h3>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
