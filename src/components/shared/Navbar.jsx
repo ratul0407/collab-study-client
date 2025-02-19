@@ -10,12 +10,12 @@ import useTheme from "../../hooks/useTheme";
 
 function Navbar() {
   const { user, logOut } = useAuth();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, usePreferredTheme } = useTheme();
 
   const { role } = useRole();
   return (
-    <div className={`navbar`}>
-      <div className="navbar-start space-x-4">
+    <div className="max-w-screen navbar mx-auto w-11/12 w-full px-4">
+      <div className="navbar-start space-x-4 bg-base-100">
         <Link to="/">
           {/* <img className="w-20" src={logo} alt="Company Logo" />
            */}
@@ -88,7 +88,7 @@ function Navbar() {
                   <button
                     className="tooltip"
                     data-tip="dark"
-                    onClick={() => setTheme("black")}
+                    onClick={() => setTheme("dark")}
                   >
                     <GoMoon className="h-4 w-4" />
                   </button>

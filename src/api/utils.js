@@ -13,9 +13,3 @@ const saveUser = async (user) => {
   return data;
 };
 export { saveUser };
-
-const currentTheme = () => {
-  return localStorage.getItem("theme");
-};
-
-export { currentTheme };

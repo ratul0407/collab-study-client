@@ -8,9 +8,7 @@ function Root() {
   console.log(theme);
   return (
     <div className="bg-base-100 font-montserrat font-normal">
-      <header
-        className={`sticky top-0 z-50 w-full py-2 md:py-4 ${theme === "black" ? "bg-black" : "bg-white"}`}
-      >
+      <header className="sticky top-0 z-50 max-w-full bg-base-100 py-2 md:py-4">
         <Navbar />
       </header>
       <main>
